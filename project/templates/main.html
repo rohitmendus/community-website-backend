@@ -45,8 +45,8 @@
                 </svg>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-md-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="sign-in.html">Sign In</a></li>
-                <li><a class="dropdown-item" onclick="open_reg_tab()">Register</a></li>
+                <li><a class="dropdown-item" href="{% url 'sign_in' %}">Sign In</a></li>
+                <li><a class="dropdown-item" href="{% url 'sign_in' %}">Register</a></li>
               </ul>
             </div>
           </li>
@@ -185,7 +185,7 @@
     <footer>&copy; 2021 The Palackal Family</footer>
   </div>
   <!--Bootstrap Bundle with Popper -->
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
   <!-- My script -->
   <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 </body>

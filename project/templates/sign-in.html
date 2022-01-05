@@ -1,15 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<meta name="google-signin-client_id" content="meta-plateau-317410.apps.googleusercontent.com">
 	<title>Sign In|Register</title>
 </head>
 <body id="sign-in-page">
-	<a class="back" href="index.html">
+	<a class="back" href="{% url 'index' %}">
 		<div>
 			<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
 				<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -56,7 +57,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="d-flex justify-content-center" id="g-signin"><div id="my-signin2"></div></div>
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</form>
 						</div>
@@ -137,7 +137,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="d-flex justify-content-center" id="g-signin"><div id="my-signin2"></div></div>
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</form>
 						</div>
@@ -146,11 +145,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- Google sign in -->
-	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	<!--Bootstrap Bundle with Popper -->
-	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 	<!-- My script -->
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
