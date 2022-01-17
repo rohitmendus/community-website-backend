@@ -18,6 +18,12 @@
 			<span>Back</span>
 		</div>
 	</a>
+	{% for message in messages %}
+	<div class="alert alert-info alert-dismissible fade show" role="alert">
+	  <button type="button" class="btn-close close-alert" data-dismiss="alert" aria-label="Close"></button>
+	  <strong>{{message}}</strong>
+	</div>
+	{% endfor %}
 	<div class="container card-container" id="sign-in-or-register">
 		<div class="card container">
 			<div class="card-body">
