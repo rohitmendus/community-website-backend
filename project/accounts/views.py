@@ -8,6 +8,16 @@ import re
 
 # Create your views here.
 def sign_in(request):
+	if request.method == "POST":
+		email = request.POST.get('email')
+		password = request.POST.get('password')
+		user = auth.authenticate(username=email, password=password)
+		if user is not None:
+			auth.login(request, user)
+			return redirect("/dashboard")
+		else:
+			messages.info(request, "Incorrect email or password!")
+			return redirect("/sign-in")
 	return render(request, 'sign-in.html')
 
 def number_generator():
@@ -28,8 +38,8 @@ def register(request):
 		password2 = request.POST.get('password2')
 		inputs = [f_name, l_name, invi_code, email, password1, password2]
 		regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-		if (re.fullmatch(regex, email)):
-			if '' not in inputs:
+		if '' not in inputs:
+			if (re.fullmatch(regex, email)):
 				if password1 == password2:
 					if User.objects.filter(email=email).exists() == False:
 						if Profile.objects.filter(invi_code=invi_code).exists():
@@ -40,7 +50,8 @@ def register(request):
 							new_invi_code = number_generator()
 							user_profile = Profile(user=user, invi_code=new_invi_code)
 							user_profile.save()
-							return redirect("/")
+							auth.login(request, user)
+							return redirect("/dashboard")
 						else:
 							messages.info(request, 'Invitation Code is not valid!')
 							return redirect('/sign-in')
@@ -51,11 +62,14 @@ def register(request):
 					messages.info(request, 'Passwords are not matching!')
 					return redirect('/sign-in')
 			else:
-				messages.info(request, 'Some fields are empty!')
+				messages.info(request, 'Email is not valid!')
 				return redirect('/sign-in')
 		else:
-			messages.info(request, 'Email is not valid!')
+			messages.info(request, 'Some fields are empty!')
 			return redirect('/sign-in')
 	else:
 		return redirect('/sign-in')
 		
+def logout(request):
+	auth.logout(request)
+	return redirect("/")

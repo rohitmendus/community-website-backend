@@ -38,10 +38,11 @@
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="sign-in" role="tabpanel" aria-labelledby="sign-in-tab">
 						<div class="sign-in-body">
-							<form class="needs-validation" novalidate>
+							<form class="needs-validation" action="{% url 'sign_in' %}" method="post" novalidate>
+								{% csrf_token %}
 								<div class="mb-3">
 									<div class="form-floating mb-3">
-										<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+										<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
 										<label for="floatingInput">Email address</label>
 										<div class="valid-feedback">
 											Looks good!
@@ -53,7 +54,7 @@
 								</div>
 								<div class="mb-3">
 									<div class="form-floating">
-										<input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+										<input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password"required>
 										<label for="floatingPassword">Password</label>
 										<div class="valid-feedback">
 											Looks good!

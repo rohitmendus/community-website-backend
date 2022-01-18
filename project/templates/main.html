@@ -35,6 +35,20 @@
           <li class="nav-item">
             <a class="nav-link" href="#gallery">Gallery</a>
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown d-md-inline d-none">
+            <div id="signed-in-pro">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="images/sign-in-profile.jpg" width="40" height="40" class="d-sm-none d-md-inline profile-img">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-light dropdown-menu-md-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a class="dropdown-item" onclick="open_settings()">Settings</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+              </ul>
+            </div>
+          </li>
+          {% else %}
           <li class="nav-item dropdown d-md-inline d-none">
             <div id="not-signed-in-pro">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,18 +63,23 @@
               </ul>
             </div>
           </li>
-          <!-- <li class="nav-item dropdown d-md-inline d-none">
-            <div id="signed-in-pro">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="images/sign-in-profile.jpg" width="40" height="40" class="d-sm-none d-md-inline profile-img">
-              </a>
-              <ul class="dropdown-menu dropdown-menu-light dropdown-menu-md-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
-                <li><a class="dropdown-item" onclick="open_settings()">Settings</a></li>
-                <li><a class="dropdown-item" onclick = "sign_out()">Sign Out</a></li>
-              </ul>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <div id="signed-in-nav">
+            <div class="d-md-none d-inline">
+              <hr style="color: white;">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="open_settings()">Settings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+              </li>
             </div>
-          </li> -->
+          </div>
+          {% else %}
           <div id="not-signed-in-nav">
             <div class="d-md-none d-inline">
               <hr style="color: white;">
@@ -72,30 +91,11 @@
               </li>
             </div>
           </div>
-          <!-- <div id="signed-in-nav">
-            <div class="d-md-none d-inline">
-              <hr style="color: white;">
-              <li class="nav-item">
-                <a class="nav-link" href="dashboard.html">Dashboard</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" onclick="open_settings()">Settings</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" onclick = "sign_out()">Sign Out</a>
-              </li>
-            </div>
-          </div> -->
+          {% endif %}
         </ul>
       </div>
     </div>
   </nav>
-  <div class="jumbotron-main">
-    <div class="container">
-      <img src="{% static 'images/img2.jpg' %}" alt="The Jungle Squad" id="family-icon">
-      <h1>The Jungle Squad</h1>
-    </div>
-  </div>
 
   {% block content %}
   {% endblock %}
@@ -126,8 +126,8 @@
         <div class="col-md-4 col-12 site-links">
           <h3>Site Links</h3>
           <ul>
-            <li><a href="#">Sign In</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="{% url 'sign_in' %}">Sign In</a></li>
+            <li><a href="{% url 'sign_in' %}">Register</a></li>
             <li><a href="#">Need Help?</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Use</a></li>

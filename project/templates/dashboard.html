@@ -1,5 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'main.html' %}
+{% load static %}
 {% block content %}
+  <div class="jumbotron-main">
+    <div class="container">
+      <img src="{% static 'images/img2.jpg' %}" alt="Profile" id="family-icon">
+      <h1>Welcome {{user.first_name}}</h1>
+    </div>
+  </div>
   <div id="dashboard">
     <div class="container">
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
