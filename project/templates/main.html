@@ -39,7 +39,11 @@
           <li class="nav-item dropdown d-md-inline d-none">
             <div id="signed-in-pro">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="images/sign-in-profile.jpg" width="40" height="40" class="d-sm-none d-md-inline profile-img">
+                {% if pro_pic %}
+                <img src="{% get_media_prefix %}{{pic}}" width="40" height="40" class="d-sm-none d-md-inline profile-img">
+                {% else %}
+                <img src="{% get_media_prefix %}pics/profile.jpg" width="40" height="40" class="d-sm-none d-md-inline profile-img">
+                {% endif %}
               </a>
               <ul class="dropdown-menu dropdown-menu-light dropdown-menu-md-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>

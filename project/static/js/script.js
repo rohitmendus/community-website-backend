@@ -298,10 +298,6 @@ function submit_image(e) {
 
 // Start of SETTINGS section
 
-document.getElementById("pwd-visibility-show").addEventListener("click", s_show_pwd);
-document.getElementById("pwd-visibility-hide").addEventListener("click", s_hide_pwd);
-
-
 // Changes image 
 function s_change_img(e) {
 	let filePath = URL.createObjectURL(event.target.files[0]); 
@@ -330,7 +326,6 @@ function edit_profile_info(e) {
 	document.getElementById("edit-info-btn").classList.add("d-none");
 	document.getElementById("save-info-btn").classList.remove("d-none");
 	document.getElementById("cancel-info-btn").classList.remove("d-none");
-	document.getElementsByClassName("pwd-visibility")[0].classList.add("d-none");
 
 	let elem = document.querySelectorAll("#profile-info-form > .mb-3 > input, #profile-info-form > .mb-3 > textarea");
 	for (let i of elem) {
@@ -349,7 +344,6 @@ function cancel_profile_info(e) {
 		document.getElementById("edit-info-btn").classList.remove("d-none");
 		document.getElementById("save-info-btn").classList.add("d-none");
 		document.getElementById("cancel-info-btn").classList.add("d-none");
-		document.getElementsByClassName("pwd-visibility")[0].classList.remove("d-none");
 		document.getElementById("profile-info-form").classList.remove("was-validated");
 
 		let elem = document.querySelectorAll("#profile-info-form > .mb-3 > input, #profile-info-form > .mb-3 > textarea");
@@ -372,7 +366,6 @@ function save_profile_info(e) {
 		document.getElementById("edit-info-btn").classList.remove("d-none");
 		document.getElementById("save-info-btn").classList.add("d-none");
 		document.getElementById("cancel-info-btn").classList.add("d-none");
-		document.getElementsByClassName("pwd-visibility")[0].classList.remove("d-none");
 		document.getElementById("profile-info-form").classList.remove("was-validated");
 
 		let elem = document.querySelectorAll("#profile-info-form > .mb-3 > input, #profile-info-form > .mb-3 > textarea");
