@@ -36,6 +36,7 @@ def dashboard(request):
 			context[sm[x]] = ''
 		else:
 			context[sm[x]] = i
+	print(context)
 	return render(request, 'dashboard.html', context)
 
 def change_info(request, id):
@@ -44,19 +45,26 @@ def change_info(request, id):
 		l_name = request.POST.get('l_name')
 		email = request.POST.get('email')
 		bio = request.POST.get('bio')
-		inputs = [f_name, l_name, email]
+		file = request.FILES.get('profile-pic')
+		inputs = [f_name, l_name, email, file]
 		if '' not in inputs:
 			regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 			if (re.fullmatch(regex, email)):
-				user = User.objects.get(id=id)
-				user.first_name = f_name
-				user.last_name = l_name
-				user.email = email
-				user.save()
-				profile = Profile.objects.get(user_id=id)
-				profile.bio = bio
-				profile.save()
-				return redirect("/dashboard")
+				if User.objects.filter(email=email).exists() == False or User.objects.get(id=id).email == email:
+					user = User.objects.get(id=id)
+					user.first_name = f_name
+					user.last_name = l_name
+					user.email = email
+					user.save()
+					profile = Profile.objects.get(user_id=id)
+					profile.bio = bio
+					if file != None:
+						profile.profile_pic = file
+					profile.save()
+					return redirect("/dashboard")
+				else:
+					messages.info(request, 'Same Email is already registered!')
+					return redirect("/dashboard")
 			else:
 				messages.info(request, 'Email is not valid!')
 				return redirect("/dashboard")

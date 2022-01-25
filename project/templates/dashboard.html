@@ -1,12 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-  {% for message in messages %}
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <button type="button" class="btn-close close-alert" data-dismiss="alert" aria-label="Close"></button>
-    <strong>{{message}}</strong>
-  </div>
-  {% endfor %}
   <div class="jumbotron-main">
     <div class="container">
       <img src="{% static 'images/img2.jpg' %}" alt="Profile" id="family-icon">
@@ -232,9 +226,10 @@
             <div>
               <h2>Profile Info</h2>
               <div class="row">
-                <form id="profile-info-form" class="row needs-validation" novalidate method="post" action="{% url 'change_info' user.id %}">
+                <form id="profile-info-form" class="row needs-validation" novalidate method="post" action="{% url 'change_info' user.id %}" enctype="multipart/form-data">
+                  {% csrf_token %}
                   <div class="col-md-7 col-12 order-2 order-md-1">
-                    <div class="mb-3 col-md-6 col-12">
+                    <div class="mb-3 col-12">
                       <label for="s-first-name" class="form-label">First Name</label>
                       <input type="text" class="form-control" id="s-first-name" value="{{user.first_name}}" name="f_name" required disabled>
                       <div class="invalid-feedback">
@@ -244,7 +239,7 @@
                         Looks good!
                       </div>
                     </div>
-                    <div class="mb-3 col-md-6 col-12">
+                    <div class="mb-3 col-12">
                       <label for="s-last-name" class="form-label">Last Name</label>
                       <input type="text" class="form-control" id="s-last-name" value="{{user.last_name}}" name="l_name" required disabled>
                       <div class="invalid-feedback">
@@ -288,7 +283,7 @@
                         </svg>
                         <span>Change Image</span>
                       </label>
-                      <input id="profile-pic" type="file" onchange="s_change_img(event)" accept="image/*"/>
+                      <input name="profile-pic" id="profile-pic" type="file" onchange="s_change_img(event)" accept="image/*"/>
                       {% if pro_pic %}
                       <img src="{% get_media_prefix %}{{pic}}" id="profile-pic-img"/>
                       {% else %}

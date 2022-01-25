@@ -1,29 +1,10 @@
-// Customising google sign in button
-function onSuccess(googleUser) {
-	console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-}
-function onFailure(error) {
-	console.log(error);
-}
-function renderButton() {
-	gapi.signin2.render('my-signin2', {
-		'scope': 'profile email',
-		'width': 320,
-		'font-size': 16,
-		'height': 50,
-		'longtitle': true,
-		'theme': 'dark',
-		'onsuccess': onSuccess,
-		'onfailure': onFailure
-	});
-}
+// Start of Sign In
 
 alerts = document.getElementsByClassName("close-alert");
 for (let i of alerts){
 	i.addEventListener("click", close_alert);
 }
 function close_alert(e){
-	console.log(e.target.parentElement)
 	e.target.parentElement.remove();
 }
 
@@ -303,22 +284,6 @@ function s_change_img(e) {
 	let filePath = URL.createObjectURL(event.target.files[0]); 
 	document.getElementById("profile-pic-img").src = filePath;
 }
-
-
-// Shows password
-function s_show_pwd(e) {
-	document.getElementById("pwd-visibility-show").classList.add("d-none");
-	document.getElementById("s-pwd").type = "text";
-	document.getElementById("pwd-visibility-hide").classList.remove("d-none");
-}
-
-// Hides password
-function s_hide_pwd(e) {
-	document.getElementById("pwd-visibility-hide").classList.add("d-none");
-	document.getElementById("s-pwd").type = "password";
-	document.getElementById("pwd-visibility-show").classList.remove("d-none");
-}
-
 var s_info_values = [];
 // Changes to editing mode for profile info
 function edit_profile_info(e) {
@@ -327,13 +292,12 @@ function edit_profile_info(e) {
 	document.getElementById("save-info-btn").classList.remove("d-none");
 	document.getElementById("cancel-info-btn").classList.remove("d-none");
 
-	let elem = document.querySelectorAll("#profile-info-form > .mb-3 > input, #profile-info-form > .mb-3 > textarea");
+	let elem = document.querySelectorAll("#profile-info-form > .col-md-7 > .mb-3 > input, #profile-info-form > .col-md-7 > .mb-3 > textarea");
 	for (let i of elem) {
 		s_info_values.push(i.value);
 		i.disabled = false;
 	}
-
-	document.getElementById("profile-info-form").addEventListener("submit", save_profile_info);
+	// s_info_values.push(document.getElementById('profile-pic-img').src); 
 }
 
 // Cancels the edit on profile info
@@ -344,41 +308,24 @@ function cancel_profile_info(e) {
 		document.getElementById("edit-info-btn").classList.remove("d-none");
 		document.getElementById("save-info-btn").classList.add("d-none");
 		document.getElementById("cancel-info-btn").classList.add("d-none");
-		document.getElementById("profile-info-form").classList.remove("was-validated");
 
-		let elem = document.querySelectorAll("#profile-info-form > .mb-3 > input, #profile-info-form > .mb-3 > textarea");
+		let elem = document.querySelectorAll("#profile-info-form > .col-md-7 > .mb-3 > input, #profile-info-form > .col-md-7 > .mb-3 > textarea");
 		let c = 0
+		console.log(s_info_values)
 		for (let i of elem) {
+			// if (c === 4):
+			// 	i.src = s_info_values[c]
+			// else:
+			// 	i.value = s_info_values[c];
+			// 	i.disabled = true;
+			// c++;
 			i.value = s_info_values[c];
 			i.disabled = true;
 			c++;
 		}
 		s_info_values = [];
-		document.getElementById("profile-info-form").removeEventListener("submit", save_profile_info);
 	}
 }
-
-
-// Saves profile info changes 
-function save_profile_info(e) {
-	e.preventDefault();
-	if (is_validated2) {
-		document.getElementById("edit-info-btn").classList.remove("d-none");
-		document.getElementById("save-info-btn").classList.add("d-none");
-		document.getElementById("cancel-info-btn").classList.add("d-none");
-		document.getElementById("profile-info-form").classList.remove("was-validated");
-
-		let elem = document.querySelectorAll("#profile-info-form > .mb-3 > input, #profile-info-form > .mb-3 > textarea");
-		for (let i of elem) {
-			i.disabled = true;
-		}
-
-		s_info_values = [];			
-		document.getElementById("profile-info-form").removeEventListener("submit", save_profile_info);
-	}
-}
-
-
 
 var s_url_values = [];
 // Changes to editing mode for social media links
