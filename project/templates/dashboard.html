@@ -1,6 +1,12 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+  {% for message in messages %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close close-alert" data-dismiss="alert" aria-label="Close"></button>
+    <strong>{{message}}</strong>
+  </div>
+  {% endfor %}
   <div class="jumbotron-main">
     <div class="container">
       <img src="{% static 'images/img2.jpg' %}" alt="Profile" id="family-icon">
@@ -31,50 +37,20 @@
             <input type="text" class="form-control" id="srch-ppl" placeholder="Search people...">
           </div>
           <ul id="ppl" class="list-group">
+            {% for user in users %}
             <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Adriana C. Ocampo Uria</span>
+              {% for profile in profiles %}
+              {% if profile.user_id == user.id %}
+              {% if profile.profile_pic == "" %}
+              <img src="{% get_media_prefix %}pics/profile.jpg" alt="{{user.first_name}}">
+              {% else %}
+              <img src="{% get_media_prefix %}{{profile.profile_pic}}" alt="{{user.first_name}}">
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              <span>{{user.first_name}} {{user.last_name}}</span>
             </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Albert Einstein</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Anna K. Behrensmeyer</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Blaise Pascal</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Caroline Herschel</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Cecilia Payne-Gaposchkin</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Jacqueline K. Barton</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Max Planck</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Richard Phillips Feynman</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Shirley Ann Jackson</span>
-            </li>
-            <li class="list-group-item">
-              <img src="images/profile.jpg" alt="Name">
-              <span>Wolfgang Ernst Pauli</span>
-            </li>
+            {% endfor %}
           </ul>
         </div>
         <div class="tab-pane fade" id="pills-add-med" role="tabpanel" aria-labelledby="pills-add-med-tab">
@@ -283,7 +259,7 @@
                         </svg>
                         <span>Change Image</span>
                       </label>
-                      <input name="profile-pic" id="profile-pic" type="file" onchange="s_change_img(event)" accept="image/*"/>
+                      <input name="profile-pic" id="profile-pic" type="file" onchange="s_change_img(event)" accept="image/*" disabled="true"/>
                       {% if pro_pic %}
                       <img src="{% get_media_prefix %}{{pic}}" id="profile-pic-img"/>
                       {% else %}
@@ -296,10 +272,11 @@
               <h2>Social Media Links</h2>
               <div class="row">
                 <div class="col-md-7 col-12">
-                  <form id="urls-form" class="row needs-validation" novalidate>
+                  <form id="urls-form" class="row needs-validation" novalidate method="post" action="{% url 'change_urls' user.id %}">
+                    {% csrf_token %}
                     <div class="mb-3 col-12">
                       <label for="s-twitter" class="form-label">Twitter</label>
-                      <input type="url" class="form-control" id="s-twitter" value="{{twitter}}" disabled>
+                      <input type="url" class="form-control" id="s-twitter" value="{{twitter}}" disabled name="twitter">
                       <div class="invalid-feedback">
                         This field should be a URL!
                       </div>
@@ -309,7 +286,7 @@
                     </div>
                     <div class="mb-3 col-12">
                       <label for="s-fb" class="form-label">Facebook</label>
-                      <input type="url" class="form-control" id="s-fb" value="{{facebook}}" disabled>
+                      <input type="url" class="form-control" id="s-fb" value="{{facebook}}" disabled name="facebook">
                       <div class="invalid-feedback">
                         This field should be a URL!
                       </div>
@@ -319,7 +296,7 @@
                     </div>
                     <div class="mb-3 col-12">
                       <label for="s-insta" class="form-label">Instagram</label>
-                      <input type="url" class="form-control" id="s-insta" value="{{instagram}}" disabled>
+                      <input type="url" class="form-control" id="s-insta" value="{{instagram}}" disabled name="instagram">
                       <div class="invalid-feedback">
                         This field should be a URL!
                       </div>
@@ -329,7 +306,7 @@
                     </div>
                     <div class="mb-3 col-12">
                       <label for="s-linkedin" class="form-label">LinkedIn</label>
-                      <input type="url" class="form-control" id="s-linkedin" value="{{linkedin}}" disabled>
+                      <input type="url" class="form-control" id="s-linkedin" value="{{linkedin}}" disabled name="linkedin">
                       <div class="invalid-feedback">
                         This field should be a URL!
                       </div>
@@ -348,6 +325,11 @@
                       <button class="btn btn-danger d-none" id="cancel-urls-btn" onclick="cancel_urls(event)">Cancel</button>
                     </div>
                   </form>
+                </div>
+                <div class="col-md-5 col-12 malicious-actions">
+                  <h2 class="d-md-none d-block">Malicious Actions</h2>
+                  <a href="#">Change Password</a>
+                  <a href="#">Delete Account</a>
                 </div>
               </div>
             </div>

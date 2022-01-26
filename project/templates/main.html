@@ -10,12 +10,6 @@
   <title>The Jungle Squad</title>
 </head>
 <body style="position: relative;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
-  {% for message in messages %}
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <button type="button" class="btn-close close-alert" data-dismiss="alert" aria-label="Close"></button>
-    <strong>{{message}}</strong>
-  </div>
-  {% endfor %}
   <nav class="navbar navbar-expand-md navbar-dark bg-primary" id="navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">

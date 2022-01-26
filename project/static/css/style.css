@@ -21991,6 +21991,7 @@ textarea.form-control-lg {
 #dashboard .tab-content #pills-ppl ul li img {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
 }
 #dashboard .tab-content #pills-ppl ul li span {
   margin-left: 10px;
@@ -22179,7 +22180,7 @@ textarea.form-control-lg {
 #dashboard .tab-content #pills-settings .container .row .col-md-5 .img-box label span {
   height: 2em;
 }
-#dashboard .tab-content #pills-settings .container .row .col-md-5 .img-box:hover label {
+#dashboard .tab-content #pills-settings .container .row .col-md-5 .img-box-hover:hover label {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22190,22 +22191,22 @@ textarea.form-control-lg {
   border-radius: 50%;
   margin-bottom: 0;
 }
-#dashboard .tab-content #pills-settings .container .row form .col-md-7 div label {
+#dashboard .tab-content #pills-settings .container .row .col-md-7 div label {
   color: #323436;
 }
-#dashboard .tab-content #pills-settings .container .row form .col-md-7 .buttons {
+#dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#dashboard .tab-content #pills-settings .container .row form .col-md-7 .buttons button {
+#dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons button {
   margin-left: 10px;
   margin-right: 10px;
 }
-#dashboard .tab-content #pills-settings .container .row form .col-md-7 .buttons button svg {
+#dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons button svg {
   margin-right: 2px;
 }
-#dashboard .tab-content #pills-settings .container .row form .col-md-7 .buttons button span {
+#dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons button span {
   vertical-align: middle;
 }
 #dashboard .hide {
@@ -22221,6 +22222,24 @@ textarea.form-control-lg {
   position: absolute;
   right: 10px;
   font-family: "Poppins", sans-serif;
+}
+#dashboard .tab-content #pills-settings .container .row .malicious-actions{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+}
+#dashboard .tab-content #pills-settings .container .row .malicious-actions a{
+  text-decoration: none;
+  display: block;
+  font-size: 1.15em;
+  line-height: 40px;
+}
+#dashboard .tab-content #pills-settings .container .row .malicious-actions a:hover{
+  color: #6a736c;
+}
+#dashboard .tab-content #pills-settings .container .row .malicious-actions h2{
+  color: #323436;
 }
 
 /*!
@@ -33091,17 +33110,20 @@ textarea.form-control-lg {
     width: 24px;
     height: 24px;
   }
-  #dashboard .tab-content #pills-settings .container .row .col-md-5 .img-box:hover label {
+  #dashboard .tab-content #pills-settings .container .row .col-md-5 .img-box-hover:hover label {
     border-radius: 0;
     background: unset;
     display: inline-block;
     color: #323436;
   }
-  #dashboard .tab-content #pills-settings .container .row form .col-md-7 .buttons button {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons button {
     font-size: 0.95em;
   }
   #dashboard .small-text span {
     font-size: 0.9em;
+  }
+  #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
+    font-size: 1.05em;
   }
 }
 @media (max-width: 767px) {
@@ -33321,20 +33343,20 @@ textarea.form-control-lg {
     width: 22px;
     height: 22px;
   }
-  #dashboard .tab-content #pills-settings .container .row form .col-md-7 div input, #dashboard .tab-content #pills-settings .container .row .col-md-7 form div textarea {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 div input, #dashboard .tab-content #pills-settings .container .row .col-md-7 div textarea {
     font-size: 0.95em;
   }
-  #dashboard .tab-content #pills-settings .container .row form .col-md-7 div label {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 div label {
     font-size: 0.95em;
   }
-  #dashboard .tab-content #pills-settings .container .row form .col-md-7 div .invalid-feedback, #dashboard .tab-content #pills-settings .container .row .col-md-7 form div .valid-feedback {
-    font-size: 0.75em;
-  }
-  #dashboard .tab-content #pills-settings .container .row form .col-md-7 .buttons button {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons button {
     font-size: 0.9em;
   }
   #dashboard .small-text span {
     font-size: 0.85em;
+  }
+  #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
+    font-size: 1em;
   }
 }
 @media (max-width: 411px) {
@@ -33503,24 +33525,23 @@ textarea.form-control-lg {
     width: 100%;
     height: 175px;
   }
-  #dashboard .tab-content #pills-settings .container .row .col-md-7 form div input, #dashboard .tab-content #pills-settings .container .row .col-md-7 form div textarea {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 div input, #dashboard .tab-content #pills-settings .container .row .col-md-7 form div textarea {
     font-size: 0.9em;
   }
-  #dashboard .tab-content #pills-settings .container .row .col-md-7 form div label {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 div label {
     font-size: 0.9em;
   }
-  #dashboard .tab-content #pills-settings .container .row .col-md-7 form div .invalid-feedback, #dashboard .tab-content #pills-settings .container .row .col-md-7 form div .valid-feedback {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 div .invalid-feedback, #dashboard .tab-content #pills-settings .container .row .col-md-7 form div .valid-feedback {
     font-size: 0.7em;
   }
-  #dashboard .tab-content #pills-settings .container .row .col-md-7 form .buttons button {
+  #dashboard .tab-content #pills-settings .container .row .col-md-7 .buttons button {
     font-size: 0.85em;
-  }
-  #dashboard .tab-content #pills-settings .container .row .col-md-7 form .s-div-pwd .pwd-visibility svg {
-    height: 16px;
-    width: 16px;
   }
   #dashboard .small-text span {
     font-size: 0.8em;
+  }
+  #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
+    font-size: 0.95em;
   }
 }
 body, p, span, pre {

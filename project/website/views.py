@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.validators import URLValidator
 import re
 
 # Create your views here.
@@ -36,8 +37,12 @@ def dashboard(request):
 			context[sm[x]] = ''
 		else:
 			context[sm[x]] = i
-	print(context)
+	users = User.objects.filter(is_superuser=False)
+	profiles = Profile.objects.all()
+	context['users'] = users
+	context['profiles'] = profiles
 	return render(request, 'dashboard.html', context)
+
 
 def change_info(request, id):
 	if request.method == "POST":
@@ -75,3 +80,26 @@ def change_info(request, id):
 		return redirect("/dashboard")
 
 
+def change_urls(request, id):
+	if request.method == "POST":
+		twitter = request.POST.get('twitter')
+		facebook = request.POST.get('facebook')
+		instagram = request.POST.get('instagram')
+		linkedin = request.POST.get('linkedin')
+		inputs = [twitter, facebook, instagram, linkedin]
+		validate = URLValidator()
+		for i in inputs:
+			if len(i) != 0:
+				try:
+					validate(i)
+				except:
+					messages.info(request, 'Url is not valid!')
+					return redirect("/dashboard")
+		profile = Profile.objects.get(user_id=id)
+		profile.twitter = twitter
+		profile.facebook = facebook
+		profile.instagram = instagram 
+		profile.linkedin = linkedin
+		profile.save()
+		return redirect("/dashboard")
+	return redirect("/dashboard")

@@ -297,7 +297,9 @@ function edit_profile_info(e) {
 		s_info_values.push(i.value);
 		i.disabled = false;
 	}
-	// s_info_values.push(document.getElementById('profile-pic-img').src); 
+	s_info_values.push(document.getElementById('profile-pic-img').src);
+	document.getElementById('profile-pic').disabled=false;
+	$('.img-box').addClass('img-box-hover');
 }
 
 // Cancels the edit on profile info
@@ -309,18 +311,19 @@ function cancel_profile_info(e) {
 		document.getElementById("save-info-btn").classList.add("d-none");
 		document.getElementById("cancel-info-btn").classList.add("d-none");
 
-		let elem = document.querySelectorAll("#profile-info-form > .col-md-7 > .mb-3 > input, #profile-info-form > .col-md-7 > .mb-3 > textarea");
+		let elem = document.querySelectorAll("#profile-info-form > .col-md-7 > .mb-3 > input, #s-bio, #profile-pic-img");
 		let c = 0
-		console.log(s_info_values)
 		for (let i of elem) {
-			// if (c === 4):
-			// 	i.src = s_info_values[c]
-			// else:
-			// 	i.value = s_info_values[c];
-			// 	i.disabled = true;
-			// c++;
-			i.value = s_info_values[c];
-			i.disabled = true;
+			if (c === 4){
+				i.src = s_info_values[c];
+				document.getElementById('profile-pic').disabled=true;
+				$('.img-box').removeClass('img-box-hover');
+				$('#profile-pic').val('');
+			}
+			else{
+				i.value = s_info_values[c];
+				i.disabled = true;
+			}
 			c++;
 		}
 		s_info_values = [];
@@ -340,8 +343,6 @@ function edit_urls(e) {
 		s_url_values.push(i.value);
 		i.disabled = false;
 	}
-
-	document.getElementById("urls-form").addEventListener("submit", save_urls);
 }
 
 // Cancels the edit on social media urls
@@ -363,28 +364,8 @@ function cancel_urls(e) {
 		}
 
 		s_url_values = [];
-		document.getElementById("urls-form").removeEventListener("submit", save_urls);
 	}
 }
-
-// Saves social media url changes 
-function save_urls(e) {
-	e.preventDefault();
-	if (is_validated2) {
-		document.getElementById("edit-urls-btn").classList.remove("d-none");
-		document.getElementById("save-urls-btn").classList.add("d-none");
-		document.getElementById("cancel-urls-btn").classList.add("d-none");
-		document.getElementById("urls-form").classList.remove("was-validated");
-
-		let elem = document.querySelectorAll("#urls-form > .mb-3 > input");
-		for (let i of elem) {
-			i.disabled = true;
-		}
-
-		s_url_values = [];			
-		document.getElementById("urls-form").removeEventListener("submit", save_urls);
-	}
-} 
 
 // End of SETTINGS section
 
