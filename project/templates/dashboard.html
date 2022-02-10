@@ -33,25 +33,37 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-ppl" role="tabpanel" aria-labelledby="pills-ppl-tab">
+          <div id="friend-requests"></div>
+          <div id="friends"></div>
           <div>
-            <input type="text" class="form-control" id="srch-ppl" placeholder="Search people...">
-          </div>
-          <ul id="ppl" class="list-group">
-            {% for user in users %}
-            <li class="list-group-item">
-              {% for profile in profiles %}
-              {% if profile.user_id == user.id %}
-              {% if profile.profile_pic == "" %}
-              <img src="{% get_media_prefix %}pics/profile.jpg" alt="{{user.first_name}}">
-              {% else %}
-              <img src="{% get_media_prefix %}{{profile.profile_pic}}" alt="{{user.first_name}}">
-              {% endif %}
+            <div>
+              <input type="text" class="form-control" id="srch-ppl" placeholder="Search people...">
+            </div>
+            <ul id="ppl" class="list-group">
+              {% for user in users %}
+              {% if user != request.user %}
+              <li class="list-group-item">
+                {% for profile in profiles %}
+                {% if profile.user_id == user.id %}
+                {% if profile.profile_pic == "" %}
+                <img src="{% get_media_prefix %}pics/profile.jpg" alt="{{user.first_name}}">
+                {% else %}
+                <img src="{% get_media_prefix %}{{profile.profile_pic}}" alt="{{user.first_name}}">
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                <span>{{user.first_name}} {{user.last_name}}</span>
+                <a class="add-friend-btn" href="{% url 'add_friend' user.id %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+                </a>
+              </li>
               {% endif %}
               {% endfor %}
-              <span>{{user.first_name}} {{user.last_name}}</span>
-            </li>
-            {% endfor %}
-          </ul>
+            </ul>
+          </div>
         </div>
         <div class="tab-pane fade" id="pills-add-med" role="tabpanel" aria-labelledby="pills-add-med-tab">
           <div class="container">
@@ -329,7 +341,7 @@
                 <div class="col-md-5 col-12 malicious-actions">
                   <h2 class="d-md-none d-block">Malicious Actions</h2>
                   <a href="#">Change Password</a>
-                  <a href="#">Delete Account</a>
+                  <a href="{% url 'delete_account' %}">Delete Account</a>
                 </div>
               </div>
             </div>

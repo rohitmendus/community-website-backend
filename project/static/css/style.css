@@ -22241,6 +22241,18 @@ textarea.form-control-lg {
 #dashboard .tab-content #pills-settings .container .row .malicious-actions h2{
   color: #323436;
 }
+.add-friend-btn {
+  float: right;
+  padding-right: 10px;
+}
+.add-friend-btn svg{
+  height: 23px;
+  width: 23px;
+  color: #323436;
+}
+.add-friend-btn:hover svg{
+  color: #505a63;
+}
 
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
@@ -33357,6 +33369,10 @@ textarea.form-control-lg {
   }
   #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
     font-size: 1em;
+  }
+  .add-friend-btn svg{
+    height: 20px;
+    width: 20px;
   }
 }
 @media (max-width: 411px) {

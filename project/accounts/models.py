@@ -11,6 +11,7 @@ class Profile(models.Model):
 	facebook = models.URLField(null=True)
 	instagram = models.URLField(null=True)
 	linkedin = models.URLField(null=True)
+	friends = models.ManyToManyField(User, related_name="friends", blank=True)
 
 	def __str__(self):
 		return self.user.username

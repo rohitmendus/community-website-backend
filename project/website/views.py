@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import Profile
+from .models import friend_requests
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.validators import URLValidator
@@ -103,3 +104,22 @@ def change_urls(request, id):
 		profile.save()
 		return redirect("/dashboard")
 	return redirect("/dashboard")
+
+
+@login_required(login_url="/sign-in")
+def delete_account(request):
+	return render(request, 'delete_account.html')
+
+
+@login_required(login_url="/sign-in")
+def add_friend(request, id):
+	to_user = User.objects.get(id=id)
+	from_user = request.user
+	friend_request, created = friend_requests.objects.get_or_create(from_user=from_user, to_user=to_user)
+	if created:
+		to_user_name = to_user.first_name + " " + to_user.last_name
+		messages.info(request, 'Friend request has been sent to '+to_user_name+'!')
+		return redirect("/dashboard")
+	else:
+		messages.info(request, 'A request had already been sent, please wait!')
+		return redirect("/dashboard")

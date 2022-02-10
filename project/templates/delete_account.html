@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<meta name="google-signin-client_id" content="meta-plateau-317410.apps.googleusercontent.com">
+	<title>Delete Account</title>
+</head>
+<body id="sign-in-page">
+	<a class="back" href="{% url 'index' %}">
+		<div>
+			<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+			</svg>
+			<span>Back</span>
+		</div>
+	</a>
+	{% for message in messages %}
+	<div class="alert alert-info alert-dismissible fade show" role="alert">
+	  <button type="button" class="btn-close close-alert" data-dismiss="alert" aria-label="Close"></button>
+	  <strong>{{message}}</strong>
+	</div>
+	{% endfor %}
+	<div class="container card-container" id="sign-in-or-register">
+		<div class="card container">
+			<div class="card-body">
+				<h2>Delete Account</h2>
+				<p>Enter your password to confirm the deletion:</p>
+				<span>Note that the change cannot be undone:</span>
+				<form method="post">
+					<input type="password" name="password">
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Google sign in -->
+	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+	<!--Bootstrap Bundle with Popper -->
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<!-- My script -->
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
