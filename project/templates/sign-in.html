@@ -8,6 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<meta name="google-signin-client_id" content="meta-plateau-317410.apps.googleusercontent.com">
 	<title>Sign In|Register</title>
+	<script type="text/javascript">
+		var tab = "{{tab}}"
+	</script>
 </head>
 <body id="sign-in-page">
 	<a class="back" href="{% url 'index' %}">
@@ -155,11 +158,15 @@
 			</div>
 		</div>
 	</div>
+	<!-- Jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!-- Google sign in -->
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	<!--Bootstrap Bundle with Popper -->
 	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 	<!-- My script -->
 	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+	<!-- My Jquery script -->
+	<script type="text/javascript" src="{% static 'js/script2.js' %}"></script>
 </body>
 </html>

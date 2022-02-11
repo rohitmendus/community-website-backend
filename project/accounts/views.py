@@ -20,6 +20,10 @@ def sign_in(request):
 			return redirect("/sign-in")
 	return render(request, 'sign-in.html')
 
+def show_register(request, tab):
+	return render(request, 'sign-in.html', {'tab':tab})
+
+
 def number_generator():
 	digits = [i for i in range(10)]
 	random_num = ""

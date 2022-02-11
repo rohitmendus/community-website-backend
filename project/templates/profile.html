@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<meta name="google-signin-client_id" content="meta-plateau-317410.apps.googleusercontent.com">
+	<title>Profile | {{profile.first_name}} {{profile.last_name}}</title>
+</head>
+<body class="secondary-main-page">
+	<a class="back" href="{% url 'dashboard' %}">
+		<div>
+			<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+			</svg>
+			<span>Back</span>
+		</div>
+	</a>
+	<div class="container" id="profile">
+		<!-- Will do later -->
+		<!-- <div class=row>
+			<div class="col-md-7">
+				<h2>{{profile.first_name}}'s Profile</h2>
+				<p>Name: {{profile.first_name}} {{profile.last_name}}</p>
+				<p>Bio: {{profile.bio}}</p>
+			</div>
+			<div class="col-md-5">
+				{% if profile.pro_pic %}
+				<img src="{% get_media_prefix %}{{profile.profile_pic}}" id="profile-pic-img"/>
+				{% else %}
+				<img src="{% get_media_prefix %}pics/profile.jpg" id="profile-pic-img"/>
+				{% endif %}
+			</div>
+		</div> -->
+	</div>
+	<!-- Jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!--Bootstrap Bundle with Popper -->
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<!-- My script -->
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+	<!-- My Jquery script -->
+	<script type="text/javascript" src="{% static 'js/script2.js' %}"></script>
+</body>
+</html>

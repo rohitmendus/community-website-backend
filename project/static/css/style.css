@@ -11125,7 +11125,7 @@ textarea.form-control-lg {
   -o-background-size: cover;
   background-size: cover;
 }
-#sign-in-page .back {
+.back {
   background-color: black;
   opacity: 0.6;
   color: white;
@@ -11137,14 +11137,14 @@ textarea.form-control-lg {
   left: 0;
   right: 0;
 }
-#sign-in-page .back div {
+.back div {
   margin: 10px 0px 10px 20px;
 }
-#sign-in-page .back div:hover {
+.back div:hover {
   color: rgba(255, 255, 255, 0.9);
   transition: color 300ms ease-in 300ms;
 }
-#sign-in-page .back div span {
+.back div span {
   margin-left: 10px;
   font-size: 2em;
   vertical-align: middle;
@@ -21966,10 +21966,10 @@ textarea.form-control-lg {
 #dashboard .tab-content {
   color: white;
 }
-#dashboard .tab-content #pills-ppl div {
+#dashboard .tab-content #pills-ppl #srch-div div {
   margin: 20px 0;
 }
-#dashboard .tab-content #pills-ppl div #srch-ppl {
+#dashboard .tab-content #pills-ppl #srch-div #srch-ppl {
   border: 1px solid #323436;
   border-radius: 4px;
   font-size: 16px;
@@ -21983,19 +21983,25 @@ textarea.form-control-lg {
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
 }
-#dashboard .tab-content #pills-ppl ul li {
+#dashboard .tab-content #pills-ppl #srch-div ul li, #friends ul li{
   padding: 15px;
   margin-bottom: 2px;
   cursor: pointer;
 }
-#dashboard .tab-content #pills-ppl ul li img {
+#dashboard .tab-content #pills-ppl #srch-div ul li img, #friends ul li img{
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
-#dashboard .tab-content #pills-ppl ul li span {
+#dashboard .tab-content #pills-ppl #srch-div ul li span, #friends ul li span{
   margin-left: 10px;
   font-family: "Open Sans", sans-serif;
+}
+#dashboard .tab-content #pills-ppl #srch-div ul li a, #friends ul li a{
+  text-decoration: none;
+}
+#dashboard .tab-content #pills-ppl #srch-div ul li a:hover, #friends ul li a:hover{
+  color: #505a63;
 }
 #dashboard .tab-content #pills-add-med .container {
   background-color: rgba(255, 255, 255, 0.95);
@@ -22006,7 +22012,7 @@ textarea.form-control-lg {
 #dashboard .tab-content #pills-add-med .container .med-section {
   margin-bottom: 50px;
 }
-#dashboard .tab-content #pills-add-med .container .med-section h2, #dashboard .tab-content #pills-add-med .container .med-section .h2 {
+#dashboard .headings {
   color: #323436;
   font-family: "Arvo", serif;
   margin-bottom: 15px;
@@ -22253,7 +22259,94 @@ textarea.form-control-lg {
 .add-friend-btn:hover svg{
   color: #505a63;
 }
-
+#profile {
+  margin-top: 100px;
+  height: 500px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  color: #323436;
+}
+#profile h2 {
+  color: #323436;
+}
+.secondary-main-page {
+  /*background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url("../images/sign_in.jpg") no-repeat center center fixed;*/
+  background: url("../images/sign_in.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+#friend-requests{
+  height: 400px;
+  background-color: white;
+  color: #323436;
+  padding: 30px;
+}
+#friends{
+  background-color: white;
+  color: #323436;
+  padding: 30px;
+  margin-top: 30px;
+}
+#friend-requests h5{
+  color: #323436;
+  text-align: center;
+  margin-bottom: 20px;
+}
+#friend-requests h2, #friends h2{
+  margin-left: 20px;
+}
+#friend-requests .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+#friend-requests .card .btn {
+  font-size: 0.9em;
+  margin: 5px;
+}
+#friend-requests .carousel-inner {
+  padding: 1em;
+}
+#friend-requests .card {
+  margin: 0 0.5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border: none;
+}
+#friend-requests .carousel-control-prev,
+#friend-requests .carousel-control-next {
+  background-color: #323436;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media (min-width: 768px) {
+  #friend-requests .carousel-item {
+    margin-right: 0;
+    flex: 0 0 33.333333%;
+    display: block;
+  }
+  #friend-requests .carousel-inner {
+    display: flex;
+  }
+}
+#friend-requests .card .img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#friend-requests .card img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+#friend-requests #no-frnd-req{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75%;
+}
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -33076,7 +33169,7 @@ textarea.form-control-lg {
     font-size: 0.9em;
   }
 
-  #dashboard .tab-content #pills-add-med .container .med-section h2, #dashboard .tab-content #pills-add-med .container .med-section .h2 {
+  #dashboard .headings {
     font-size: 1.6em;
   }
   #dashboard .tab-content #pills-add-med .container .med-section .med-box .med-form form div button {
@@ -33137,6 +33230,17 @@ textarea.form-control-lg {
   #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
     font-size: 1.05em;
   }
+  #friend-requests .card .btn {
+    margin: 0px;
+    font-size: 0.8em;
+  }
+  #friend-requests .card h5 {
+    font-size: 1.15em;
+  }
+  #friend-requests .card img {
+    height: 90px;
+    width: 90px;
+  }
 }
 @media (max-width: 767px) {
   .navbar-brand {
@@ -33159,10 +33263,10 @@ textarea.form-control-lg {
     display: block;
   }
 
-  #sign-in-page .back {
+  .back {
     font-size: 0.8em;
   }
-  #sign-in-page .back svg {
+  .back svg {
     width: 30px;
     height: 30px;
   }
@@ -33307,14 +33411,14 @@ textarea.form-control-lg {
     padding: 0 9px;
     font-size: 1.25em;
   }
-  #dashboard .tab-content #pills-ppl * {
+  #dashboard .tab-content #pills-ppl #srch-div li, #friends li{
     font-size: 0.95em;
   }
-  #dashboard .tab-content #pills-ppl div #srch-ppl {
+  #dashboard .tab-content #pills-ppl #srch-div #srch-ppl {
     font-size: 1em;
     background-size: 20px;
   }
-  #dashboard .tab-content #pills-add-med .container .med-section h2, #dashboard .tab-content #pills-add-med .container .med-section .h2 {
+  #dashboard .headings {
     font-size: 1.4em;
   }
   #dashboard .tab-content #pills-add-med .container .med-section .med-box .med-form form div input, #dashboard .tab-content #pills-add-med .container .med-section .med-box .med-form form div textarea {
@@ -33374,12 +33478,23 @@ textarea.form-control-lg {
     height: 20px;
     width: 20px;
   }
-}
-@media (max-width: 411px) {
-  #sign-in-page .back {
+  #friend-requests .card .btn {
+    margin: 5px;
     font-size: 0.8em;
   }
-  #sign-in-page .back svg {
+  #friend-requests .card img {
+    height: 90px;
+    width: 90px;
+  }
+  #friend-requests #no-frnd-req span {
+    font-size: 0.9em;
+  }
+}
+@media (max-width: 411px) {
+  .back {
+    font-size: 0.8em;
+  }
+  .back svg {
     width: 30px;
     height: 30px;
   }
@@ -33498,14 +33613,14 @@ textarea.form-control-lg {
   #dashboard .nav-pills .s-btn-text {
     display: none;
   }
-  #dashboard .tab-content #pills-ppl * {
+  #dashboard .tab-content #pills-ppl #srch-div li, #friends li{
     font-size: 3.9vw;
   }
-  #dashboard .tab-content #pills-ppl div #srch-ppl {
+  #dashboard .tab-content #pills-ppl #srch-div #srch-ppl {
     font-size: 3.9vw;
     background-size: 18px;
   }
-  #dashboard .tab-content #pills-add-med .container .med-section h2, #dashboard .tab-content #pills-add-med .container .med-section .h2 {
+  #dashboard .headings {
     font-size: 1.2em;
   }
   #dashboard .tab-content #pills-add-med .container .med-section .med-box .med-form form div input, #dashboard .tab-content #pills-add-med .container .med-section .med-box .med-form form div textarea {
@@ -33558,6 +33673,13 @@ textarea.form-control-lg {
   }
   #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
     font-size: 0.95em;
+  }
+  #friend-requests .card h5 {
+    font-size: 1.05em;
+  }
+  #friend-requests .card img {
+    height: 80px;
+    width: 80px;
   }
 }
 body, p, span, pre {

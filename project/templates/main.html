@@ -63,7 +63,7 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-md-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="{% url 'sign_in' %}">Sign In</a></li>
-                <li><a class="dropdown-item" href="{% url 'sign_in' %}">Register</a></li>
+                <li><a class="dropdown-item" href="{% url 'sign_in_register' 'register' %}">Register</a></li>
               </ul>
             </div>
           </li>
@@ -91,7 +91,7 @@
                 <a class="nav-link" href="{% url 'sign_in' %}">Sign In</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'sign_in' %}">Register</a>
+                <a class="nav-link" href="{% url 'sign_in_register' 'register' %}">Register</a>
               </li>
             </div>
           </div>
@@ -131,7 +131,7 @@
           <h3>Site Links</h3>
           <ul>
             <li><a href="{% url 'sign_in' %}">Sign In</a></li>
-            <li><a href="{% url 'sign_in' %}">Register</a></li>
+            <li><a href="{% url 'sign_in_register' 'register' %}">Register</a></li>
             <li><a href="#">Need Help?</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Use</a></li>

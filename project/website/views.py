@@ -42,6 +42,35 @@ def dashboard(request):
 	profiles = Profile.objects.all()
 	context['users'] = users
 	context['profiles'] = profiles
+
+	friendRequests = friend_requests.objects.filter(to_user=request.user)
+	if friendRequests.exists():
+		context["any_friend_requests"] = True
+		frnd_requests = []
+		for i in friendRequests:
+			user = User.objects.get(id=i.from_user_id)
+			first_name = user.first_name
+			last_name = user.last_name
+			profile_pic = Profile.objects.get(user_id=i.from_user_id).profile_pic
+			frnd_pro_pic = True
+			if profile_pic == "":
+				frnd_pro_pic = False
+			frnd_request = {"first_name": first_name, "last_name": last_name, 
+			"profile_pic": profile_pic, "frnd_pro_pic": frnd_pro_pic}
+			frnd_request["id"] = i.id
+			frnd_requests.append(frnd_request)
+		context["friend_requests"] = frnd_requests
+	else:
+		context["any_friend_requests"] = False
+
+	friends = []
+	for i in request.user.friends.all():
+		user = User.objects.get(id=i.user_id)
+		friend = {"first_name": user.first_name, "last_name": user.last_name, 
+		"profile_pic": i.profile_pic, "id": user.id}
+		friends.append(friend)
+	print(friends)
+	context["friends"] = friends
 	return render(request, 'dashboard.html', context)
 
 
@@ -115,11 +144,52 @@ def delete_account(request):
 def add_friend(request, id):
 	to_user = User.objects.get(id=id)
 	from_user = request.user
-	friend_request, created = friend_requests.objects.get_or_create(from_user=from_user, to_user=to_user)
-	if created:
-		to_user_name = to_user.first_name + " " + to_user.last_name
-		messages.info(request, 'Friend request has been sent to '+to_user_name+'!')
+	if from_user.friends.filter(user_id=id):
+		name = to_user.first_name + " " + to_user.last_name
+		messages.info(request, 'You are already friends with ' + name)
 		return redirect("/dashboard")
 	else:
-		messages.info(request, 'A request had already been sent, please wait!')
+		friend_request, created = friend_requests.objects.get_or_create(from_user=from_user, to_user=to_user)
+		if created:
+			to_user_name = to_user.first_name + " " + to_user.last_name
+			messages.info(request, 'Friend request has been sent to '+to_user_name+'!')
+			return redirect("/dashboard")
+		else:
+			messages.info(request, 'A request had already been sent, please wait!')
+			return redirect("/dashboard")
+
+@login_required(login_url="/sign-in")
+def profile(request, id):
+	user = User.objects.get(id=id)
+	user_profile = Profile.objects.get(user_id=id)
+	pro_pic=True
+	if user_profile.profile_pic == "":
+		pro_pic = False
+	context = {'profile': {'first_name': user.first_name, 'last_name': user.last_name, 
+	'email': user.email, 'bio': user_profile.bio, 'profile_pic': user_profile.profile_pic, 
+	'twitter': user_profile.twitter, 'facebook': user_profile.facebook, 
+	'instagram': user_profile.instagram, 'linkedin': user_profile.linkedin, 
+	'friends': user_profile.friends.all()}, "pro_pic":pro_pic}
+	print(context)
+	return render(request, "profile.html", context)
+
+
+def accept_friend_request(request, id):
+	friend_request = friend_requests.objects.get(id=id)
+	if friend_request.to_user == request.user:
+		new_friend = friend_request.from_user.first_name + " " + friend_request.from_user.last_name
+		user1 = Profile.objects.get(user=friend_request.to_user)
+		user2 = Profile.objects.get(user=friend_request.from_user)
+		user1.friends.add(friend_request.from_user)
+		user2.friends.add(friend_request.to_user)
+		friend_request.delete()
+		messages.info(request, new_friend + " has been added to your friends' list!")
 		return redirect("/dashboard")
+	return redirect("/dashboard")
+
+def decline_friend_request(request, id):
+	friend_request = friend_requests.objects.get(id=id)
+	if friend_request.to_user == request.user:
+		friend_request.delete()
+		return redirect("/dashboard")
+	return redirect("/dashboard")
