@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import Profile
 from .models import friend_requests
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.core.validators import URLValidator
+from django.contrib.auth.hashers import check_password
 import re
 
 # Create your views here.
@@ -25,7 +26,7 @@ def dashboard(request):
 	pro_pic = True
 	if profile.profile_pic == "":
 		pro_pic = False
-	context = {'pro_pic': pro_pic, 'pic': profile.profile_pic}
+	context = {'pro_pic': pro_pic, 'pic': profile.profile_pic, 'invi_code': profile.invi_code}
 	bio = profile.bio
 	twitter = profile.twitter
 	facebook = profile.facebook
@@ -137,6 +138,15 @@ def change_urls(request, id):
 
 @login_required(login_url="/sign-in")
 def delete_account(request):
+	if request.method == "POST":
+		pwd = request.user.password
+		pwd1 = request.POST.get("pwd")
+		check = check_password(pwd1, pwd)
+		if check:
+			user = User.objects.get(id=request.user.id)
+			auth.logout(request)
+			user.delete()
+			return redirect("/")
 	return render(request, 'delete_account.html')
 
 
@@ -144,6 +154,8 @@ def delete_account(request):
 def add_friend(request, id):
 	to_user = User.objects.get(id=id)
 	from_user = request.user
+	if to_user == from_user:
+		return redirect("/dashboard")
 	if from_user.friends.filter(user_id=id):
 		name = to_user.first_name + " " + to_user.last_name
 		messages.info(request, 'You are already friends with ' + name)
@@ -160,16 +172,25 @@ def add_friend(request, id):
 
 @login_required(login_url="/sign-in")
 def profile(request, id):
+	if id==request.user.id:
+		return redirect("/dashboard")
 	user = User.objects.get(id=id)
 	user_profile = Profile.objects.get(user_id=id)
 	pro_pic=True
 	if user_profile.profile_pic == "":
 		pro_pic = False
+	friends = []
+	for i in user.friends.all():
+		friend_user = User.objects.get(id=i.user_id)
+		friend = {"first_name": friend_user.first_name, 
+		"last_name": friend_user.last_name, 
+		"profile_pic": i.profile_pic, "id": friend_user.id}
+		friends.append(friend)
 	context = {'profile': {'first_name': user.first_name, 'last_name': user.last_name, 
 	'email': user.email, 'bio': user_profile.bio, 'profile_pic': user_profile.profile_pic, 
 	'twitter': user_profile.twitter, 'facebook': user_profile.facebook, 
 	'instagram': user_profile.instagram, 'linkedin': user_profile.linkedin, 
-	'friends': user_profile.friends.all()}, "pro_pic":pro_pic}
+	'pro_pic': pro_pic, "id": user.id, 'friends': friends}}
 	print(context)
 	return render(request, "profile.html", context)
 

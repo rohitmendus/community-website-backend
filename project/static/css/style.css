@@ -22247,6 +22247,12 @@ textarea.form-control-lg {
 #dashboard .tab-content #pills-settings .container .row .malicious-actions h2{
   color: #323436;
 }
+#dashboard .tab-content #pills-settings .container .row .malicious-actions span{
+  color: #323436;
+  text-align: center;
+  width: 80%;
+  margin-top: 5px;
+}
 .add-friend-btn {
   float: right;
   padding-right: 10px;
@@ -22261,13 +22267,57 @@ textarea.form-control-lg {
 }
 #profile {
   margin-top: 100px;
-  height: 500px;
+  margin-bottom: 50px;
   background-color: rgba(255, 255, 255, 0.95);
   padding: 30px;
   color: #323436;
 }
 #profile h2 {
   color: #323436;
+}
+#profile .profile-pic-container{
+  height: 330px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#profile .profile-pic-container img{
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+}
+#profile .social-media-links {
+  display: flex;
+  justify-content: center;
+}
+#profile .social-media-links a{
+  text-decoration: none;
+  margin: 5px;
+}
+#profile .friend-req-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+#profile .friend-req-container a{
+  display: flex;
+  align-items: center;
+}
+#profile .friend-req-container a *{
+  margin: 0 4px;
+}
+#profile .friend-list {
+  background-color: transparent;
+  padding: 0;
+}
+#profile .friend-list h2 {
+  margin-left: 0;
+  margin-bottom: 20px;
+}
+#profile .friend-list ul {
+  overflow-y: auto;
+  max-height: 300px;
 }
 .secondary-main-page {
   /*background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url("../images/sign_in.jpg") no-repeat center center fixed;*/
@@ -22276,12 +22326,12 @@ textarea.form-control-lg {
 }
 #friend-requests{
   height: 400px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.95);
   color: #323436;
   padding: 30px;
 }
 #friends{
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.95);
   color: #323436;
   padding: 30px;
   margin-top: 30px;
@@ -22346,6 +22396,22 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: center;
   height: 75%;
+  text-align: center;
+}
+.delete-account .card{
+  min-height: 310px !important;
+}
+.delete-account h2{
+  color: #323436;
+}
+.delete-account span{
+  font-size: 0.95em;
+}
+.delete-account form {
+  margin-top: 20px;
+}
+.delete-account .card .card-body .btn-container {
+  text-align: center;
 }
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
@@ -33230,6 +33296,9 @@ textarea.form-control-lg {
   #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
     font-size: 1.05em;
   }
+  #dashboard .tab-content #pills-settings .container .row .malicious-actions span{
+    font-size: 0.95em;
+  }
   #friend-requests .card .btn {
     margin: 0px;
     font-size: 0.8em;
@@ -33240,6 +33309,26 @@ textarea.form-control-lg {
   #friend-requests .card img {
     height: 90px;
     width: 90px;
+  }
+  #profile .profile-pic-container{
+    height: 280px;
+  }
+  #profile .profile-pic-container img{
+    height: 200px;
+    width: 200px;
+  }
+  #profile input, #profile textarea, #profile label{
+    font-size: 0.95em;
+  }
+  #profile .friend-list li{
+    font-size: 0.95em;
+  }
+  #profile .friend-req-container a{
+    font-size: 0.9em;
+  }
+  #profile .friend-req-container a svg{
+    height: 14px;
+    width: 14px;
   }
 }
 @media (max-width: 767px) {
@@ -33489,6 +33578,12 @@ textarea.form-control-lg {
   #friend-requests #no-frnd-req span {
     font-size: 0.9em;
   }
+  #profile .profile-heading {
+    text-align: center;
+  }
+  #profile .order-1{
+    margin-bottom: 30px;
+  }
 }
 @media (max-width: 411px) {
   .back {
@@ -33673,6 +33768,9 @@ textarea.form-control-lg {
   }
   #dashboard .tab-content #pills-settings .container .row .malicious-actions a {
     font-size: 0.95em;
+  }
+  #dashboard .tab-content #pills-settings .container .row .malicious-actions span{
+    font-size: 0.9em;
   }
   #friend-requests .card h5 {
     font-size: 1.05em;
