@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 from accounts.models import Profile
 from .models import friend_requests
 from django.contrib.auth.models import User, auth
@@ -70,7 +71,6 @@ def dashboard(request):
 		friend = {"first_name": user.first_name, "last_name": user.last_name, 
 		"profile_pic": i.profile_pic, "id": user.id}
 		friends.append(friend)
-	print(friends)
 	context["friends"] = friends
 	return render(request, 'dashboard.html', context)
 
@@ -147,6 +147,8 @@ def delete_account(request):
 			auth.logout(request)
 			user.delete()
 			return redirect("/")
+		else:
+			messages.info(request, "Password is incorrect!")
 	return render(request, 'delete_account.html')
 
 
@@ -191,7 +193,6 @@ def profile(request, id):
 	'twitter': user_profile.twitter, 'facebook': user_profile.facebook, 
 	'instagram': user_profile.instagram, 'linkedin': user_profile.linkedin, 
 	'pro_pic': pro_pic, "id": user.id, 'friends': friends}}
-	print(context)
 	return render(request, "profile.html", context)
 
 
@@ -214,3 +215,23 @@ def decline_friend_request(request, id):
 		friend_request.delete()
 		return redirect("/dashboard")
 	return redirect("/dashboard")
+
+@login_required(login_url="/sign-in")
+def change_password(request):
+	if request.method == "POST":
+		pwd = request.user.password
+		pwd1 = request.POST.get("pwd1")
+		check = check_password(pwd1, pwd)
+		if check:
+			pwd2 = request.POST.get("pwd2")
+			pwd3 = request.POST.get("pwd3")
+			if pwd2==pwd3:
+				request.user.set_password(pwd2)
+				request.user.save()
+				update_session_auth_hash(request, request.user)
+				return redirect("/dashboard")
+			else:
+				messages.info(request, "Passwords are not matching!")
+		else:
+			messages.info(request, "Password is incorrect!")
+	return render(request, 'change_password.html')

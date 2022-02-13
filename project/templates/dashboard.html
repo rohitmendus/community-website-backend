@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+                {% endfor %}   
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -392,7 +392,7 @@
                 </div>
                 <div class="col-md-5 col-12 malicious-actions">
                   <h2 class="d-md-none d-block">Malicious Actions</h2>
-                  <a href="#">Change Password</a>
+                  <a href="{% url 'change_password' %}">Change Password</a>
                   <a href="{% url 'delete_account' %}">Delete Account</a>
                   <span>Your referral code is: {{invi_code}}</span>
                   <span><i>Share this code with someone who you want to invite to the site.</i></span>

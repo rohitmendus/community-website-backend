@@ -22335,6 +22335,8 @@ textarea.form-control-lg {
   color: #323436;
   padding: 30px;
   margin-top: 30px;
+  overflow-y: auto;
+  max-height: 600px;
 }
 #friend-requests h5{
   color: #323436;
@@ -22399,19 +22401,37 @@ textarea.form-control-lg {
   text-align: center;
 }
 .delete-account .card{
-  min-height: 310px !important;
+  min-height: 300px !important;
 }
-.delete-account h2{
+.delete-account h2, .change-password-container h2, .pwd-reset h2{
   color: #323436;
 }
 .delete-account span{
   font-size: 0.95em;
 }
-.delete-account form {
+.delete-account form, .change-password-container form {
   margin-top: 20px;
 }
-.delete-account .card .card-body .btn-container {
+.delete-account .card .card-body .btn-container, .change-password-container .card .card-body .btn-container {
   text-align: center;
+}
+.change-password-container .card {
+  min-height: 365px !important;
+}
+.pwd-reset input[type="submit"]{
+  margin-top: 10px;
+}
+.pwd-reset .card{
+  min-height: 300px !important;
+}
+.forgot-password a{
+  text-decoration: none;
+}
+.forgot-password {
+  margin: 10px 0;
+}
+.forgot-password a:hover{
+  color: #6c757d;;
 }
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
@@ -33359,12 +33379,12 @@ textarea.form-control-lg {
     width: 30px;
     height: 30px;
   }
-  #sign-in-page #sign-in-or-register .card {
+  .sign-in #sign-in-or-register .card {
     width: 380px;
     height: 450px;
     overflow-y: auto;
   }
-  #sign-in-page #sign-in-or-register .card .card-body {
+  .sign-in #sign-in-or-register .card .card-body {
     margin: 0 auto;
     width: 320px;
     font-size: 0.8em;
@@ -33584,6 +33604,24 @@ textarea.form-control-lg {
   #profile .order-1{
     margin-bottom: 30px;
   }
+  .delete-account h2 {
+    font-size: 1.65em;
+  }
+  .delete-account p {
+    font-size: 0.95em;
+  }
+  .delete-account span {
+    font-size: 0.9em;
+  }
+  .delete-account input {
+    font-size: 0.9em;
+  }
+  .delete-account label{
+    font-size: 0.95em;
+  }
+  .delete-account .card{
+    width: 375px !important;
+  }
 }
 @media (max-width: 411px) {
   .back {
@@ -33593,11 +33631,11 @@ textarea.form-control-lg {
     width: 30px;
     height: 30px;
   }
-  #sign-in-page #sign-in-or-register .card {
+  .sign-in #sign-in-or-register .card {
     width: 310px;
     height: 400px;
   }
-  #sign-in-page #sign-in-or-register .card .card-body {
+  .sign-in #sign-in-or-register .card .card-body {
     margin: 0 auto;
     width: 270px;
     font-size: 0.8em;
@@ -33778,6 +33816,12 @@ textarea.form-control-lg {
   #friend-requests .card img {
     height: 80px;
     width: 80px;
+  }
+  .delete-account h2 {
+    font-size: 1.5em;
+  }
+  .delete-account .card{
+    width: 340px !important;
   }
 }
 body, p, span, pre {
