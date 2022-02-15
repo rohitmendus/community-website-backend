@@ -10917,6 +10917,9 @@ textarea.form-control-lg {
   padding: 10px;
   text-align: center;
 }
+#books .carousel .carousel-inner .carousel-item .card .card-body h5{
+  color: #323436;
+}
 
 #gallery {
   padding-top: 30px;
@@ -22406,7 +22409,7 @@ textarea.form-control-lg {
 .delete-account h2, .change-password-container h2, .pwd-reset h2{
   color: #323436;
 }
-.delete-account span{
+.delete-account span, .pwd-reset span{
   font-size: 0.95em;
 }
 .delete-account form, .change-password-container form {
@@ -33604,22 +33607,22 @@ textarea.form-control-lg {
   #profile .order-1{
     margin-bottom: 30px;
   }
-  .delete-account h2 {
+  .delete-account h2, .change-password-container h2, .pwd-reset h2{
     font-size: 1.65em;
   }
-  .delete-account p {
+  .delete-account p, .pwd-reset p {
     font-size: 0.95em;
   }
-  .delete-account span {
+  .delete-account span, .pwd-reset span{
     font-size: 0.9em;
   }
-  .delete-account input {
+  .delete-account input, .change-password-container input, .pwd-reset input {
     font-size: 0.9em;
   }
-  .delete-account label{
+  .delete-account label, .change-password-container label, .pwd-reset label{
     font-size: 0.95em;
   }
-  .delete-account .card{
+  .delete-account .card, .change-password-container .card, .pwd-reset .card{
     width: 375px !important;
   }
 }
@@ -33817,10 +33820,10 @@ textarea.form-control-lg {
     height: 80px;
     width: 80px;
   }
-  .delete-account h2 {
+  .delete-account h2, .change-password-container h2, .pwd-reset h2 {
     font-size: 1.5em;
   }
-  .delete-account .card{
+  .delete-account .card, .change-password-container .card, .pwd-reset .card{
     width: 340px !important;
   }
 }
