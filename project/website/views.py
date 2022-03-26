@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from accounts.models import Profile
-from .models import friend_requests
+from .models import friend_requests, Articles
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.core.validators import URLValidator
@@ -235,3 +235,21 @@ def change_password(request):
 		else:
 			messages.info(request, "Password is incorrect!")
 	return render(request, 'change_password.html')
+
+
+def add_article(request):
+	if request.method == 'POST':
+		title = request.POST.get('heading')
+		text = request.POST.get('text')
+		user = request.user
+		if len(text) < 4000:		
+			if len(title) < 200:
+				article = Articles(title=title, text=text, author=user)
+				article.save()
+			else:
+				messages.info(request, "Title has exceeded max text size!")
+				return redirect("/dashboard")
+		else:
+			messages.info(request, "Article has exceeded max text size!")
+			return redirect("/dashboard")
+	return redirect('/dashboard')

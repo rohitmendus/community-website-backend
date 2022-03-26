@@ -116,32 +116,6 @@ function cancel_article(e) {
 	}
 }
 
-// Submits the article
-document.getElementById("form-article").addEventListener("submit", submit_article);
-function submit_article(e) {
-	e.preventDefault();
-	if(is_validated2) {
-		let form = document.getElementById("form-article");
-		form.classList.remove("was-validated");
-		// Getting the input
-		let article_h = document.getElementById("artcl-heading").value;
-		let article = document.getElementById("artcl").value;
-		console.log(article_h);
-		console.log(article);
-
-		// Putting back to normal setup
-		document.getElementById("artcl-heading").value="";
-		document.getElementById("artcl").value="";
-		let box = document.getElementById("add-article");
-		box.classList.add("recent-med");
-		box.firstElementChild.classList.remove("hide");
-		box.classList.remove("add-med-1");
-		document.getElementById("med-artcl-btn").classList.remove("hide");
-		document.getElementById("add-med-artcl").classList.add("hide");
-
-	}
-
-}
 
 // End of ADD ARTICLES section
 

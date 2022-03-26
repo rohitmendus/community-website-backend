@@ -9,38 +9,39 @@ class friend_requests(models.Model):
 
 
 class Articles(models.Model):
-	title = models.CharField(max_length=100, null=True)
-	text = models.TextField(max_length=500, null=True)
-	author = models.ManyToManyField(User, related_name="articles", blank=True)
+	title = models.CharField(max_length=200, null=True)
+	text = models.TextField(max_length=4000, null=True)
+	author = models.ForeignKey(User, related_name="articles", blank=True, on_delete=models.CASCADE)
 	date_posted = models.DateField(auto_now=True)
-	like = models.IntegerField(null=True, default=0)
 
-class ArticleComments:
-	article = models.ManyToManyField(Articles, related_name="articles", blank=True)
+class ArticleLikes(models.Model):
+	article = models.ForeignKey(Articles, related_name="likes", blank=True, on_delete=models.CASCADE)
+	liked_by = models.ForeignKey(User, related_name="articles_liked", blank=True, on_delete=models.CASCADE)	
+
+class ArticleComments(models.Model):
+	article = models.ForeignKey(Articles, related_name="comments", blank=True, on_delete=models.CASCADE)
 	comment = models.TextField(max_length=500, null=True)
-	like = models.IntegerField(null=True, default=0)
-	posted_by = models.ManyToManyField(User, related_name="article_comments", blank=True)
+	posted_by = models.ForeignKey(User, related_name="articles_commented", blank=True, on_delete=models.CASCADE)
 	date_posted = models.DateField(auto_now=True)
 
-class Books(models.Model):
-	title = models.CharField(max_length=100, null=True)
-	posted_by = models.ManyToManyField(User, related_name="books", blank=True)
-	cover = models.ImageField(upload_to="pics", null=True)
+class BookReviews(models.Model):
+	book_title = models.CharField(max_length=200, null=True)
+	posted_by = models.ForeignKey(User, related_name="book_reviews", blank=True, on_delete=models.CASCADE)
+	book_cover = models.ImageField(upload_to="pics", null=True)
 	date_posted = models.DateField(auto_now=True)
-
-class BookReview(models.Model):
-	book = models.ManyToManyField(Books, related_name="book_reviews", blank=True)
-	posted_by = models.ManyToManyField(User, related_name="book_review", blank=True)
 	review = models.TextField(max_length=500, null=True)
+	shop_url = models.URLField(null=True)
 	rating = models.FloatField(default=0, 
 		validators=[
 			MinValueValidator(0.0), 
 			MaxValueValidator(5.0)
 		])
-	date_posted = models.DateField(auto_now=True)
 
 class GalleryImages(models.Model):
 	image = models.ImageField(upload_to="pics", null=True)
-	caption = models.CharField(max_length=100, null=True)
-	posted_by = models.ManyToManyField(User, related_name="galley_images", blank=True)
-	like = models.ManyToManyField(User, related_name="images", blank=True)
+	caption = models.CharField(max_length=200, null=True)
+	posted_by = models.ForeignKey(User, related_name="images_posted", blank=True, on_delete=models.CASCADE)
+	
+class ImageLikes(models.Model):
+	image = models.ForeignKey(GalleryImages, related_name="likes", blank=True, on_delete=models.CASCADE)
+	liked_by = models.ForeignKey(User, related_name="images_liked", blank=True, on_delete=models.CASCADE)	
