@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from accounts.models import Profile
-from .models import friend_requests, Articles
+from .models import friend_requests, Articles, BookReviews, GalleryImages
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.core.validators import URLValidator
@@ -246,6 +246,8 @@ def add_article(request):
 			if len(title) < 200:
 				article = Articles(title=title, text=text, author=user)
 				article.save()
+				messages.info(request, "The article has been saved!")
+				return redirect("/dashboard")
 			else:
 				messages.info(request, "Title has exceeded max text size!")
 				return redirect("/dashboard")
@@ -253,3 +255,35 @@ def add_article(request):
 			messages.info(request, "Article has exceeded max text size!")
 			return redirect("/dashboard")
 	return redirect('/dashboard')
+
+def add_book_review(request):
+	if request.method == "POST":
+		book_name = request.POST.get('bookName')
+		rating = float(request.POST.get('rating-stars'))
+		review = request.POST.get('bookReview')
+		shop_url = request.POST.get('shopUrl')
+		book_cover = request.FILES.get('bookCover')
+		posted_by = request.user
+		if len(review) < 500:
+			book_review = BookReviews(book_title=book_name, posted_by=posted_by, 
+				book_cover=book_cover, review=review, shop_url=shop_url, rating=rating)
+			book_review.save()
+			messages.info(request, "The book review has been saved!")
+			return redirect("/dashboard")
+		else:
+			messages.info(request, "Review has exceeded max text size!")
+			return redirect("/dashboard")
+	return redirect("/dashboard")
+
+def add_image(request):
+	if request.method == "POST":
+		image = request.FILES.get('image')
+		caption = request.POST.get('caption')
+		if len(caption) < 200:
+			galley_image = GalleryImages(image=image, caption=caption, posted_by=request.user)
+			messages.info(request, "The image has been saved to the gallery!")
+			galley_image.save()
+		else:
+			messages.info(request, "Caption has exceeded max text size!")
+			return redirect("/dashboard")
+	return redirect("/dashboard")

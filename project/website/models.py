@@ -41,6 +41,7 @@ class GalleryImages(models.Model):
 	image = models.ImageField(upload_to="pics", null=True)
 	caption = models.CharField(max_length=200, null=True)
 	posted_by = models.ForeignKey(User, related_name="images_posted", blank=True, on_delete=models.CASCADE)
+	date_posted = models.DateField(auto_now=True)
 	
 class ImageLikes(models.Model):
 	image = models.ForeignKey(GalleryImages, related_name="likes", blank=True, on_delete=models.CASCADE)

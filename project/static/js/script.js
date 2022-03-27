@@ -144,6 +144,10 @@ function cancel_book_review(e) {
 		document.getElementById("imageBook").value="";
 		document.getElementById("review").value="";
 		document.getElementById("bookShopUrl").value="";
+		let rd_btns = document.getElementsByName('rating-stars')
+		for (let i of rd_btns) {
+			i.checked=false;
+		}
 		let box = document.getElementById("add-book");
 		box.classList.add("recent-med");
 		box.firstElementChild.classList.remove("hide");
@@ -153,38 +157,6 @@ function cancel_book_review(e) {
 	}
 }
 
-
-// Submits the book review
-document.getElementById("form-book").addEventListener("submit", submit_book_review);
-function submit_book_review(e) {
-	e.preventDefault();
-	if(is_validated2) {
-		let form = document.getElementById("form-book");
-		form.classList.remove("was-validated");
-		// Getting the input
-		let name = document.getElementById("book_name").value;
-		let image = document.getElementById("imageBook").value;
-		let review = document.getElementById("review").value;
-		let url = document.getElementById("bookShopUrl").value;
-		console.log(name);
-		console.log(image);
-		console.log(review);
-		console.log(url);
-
-		// Putting back to normal setup
-		document.getElementById("book_name").value="";
-		document.getElementById("imageBook").value="";
-		document.getElementById("review").value="";
-		document.getElementById("bookShopUrl").value="";
-		let box = document.getElementById("add-book");
-		box.classList.add("recent-med");
-		box.firstElementChild.classList.remove("hide");
-		box.classList.remove("add-med-2");
-		document.getElementById("med-book-btn").classList.remove("hide");
-		document.getElementById("add-med-book").classList.add("hide");
-
-	}
-}
 
 // End of ADD BOOK REVIEWS section
 
@@ -216,32 +188,6 @@ function cancel_image(e) {
 		box.classList.remove("add-med-3");
 		document.getElementById("med-img-btn").classList.remove("hide");
 		document.getElementById("add-med-img").classList.add("hide");
-	}
-}
-
-// Submits the book review
-document.getElementById("form-image").addEventListener("submit", submit_image);
-function submit_image(e) {
-	e.preventDefault();
-	if(is_validated2) {
-		let form = document.getElementById("form-image");
-		form.classList.remove("was-validated");
-		// Getting the input
-		let image = document.getElementById("imageGallery").value;
-		let caption = document.getElementById("imgCaption").value;
-		console.log(image);
-		console.log(caption);
-
-		// Putting back to normal setup
-		document.getElementById("imageGallery").value="";
-		document.getElementById("imgCaption").value="";
-		let box = document.getElementById("add-image");
-		box.classList.add("recent-med");
-		box.firstElementChild.classList.remove("hide");
-		box.classList.remove("add-med-3");
-		document.getElementById("med-img-btn").classList.remove("hide");
-		document.getElementById("add-med-img").classList.add("hide");
-
 	}
 }
 

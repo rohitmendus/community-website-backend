@@ -9,23 +9,6 @@ $(document).ready(function(){
         console.log()
     }
 
-  $('#form-article').submit(function(){
-    var url = $('#form-article').attr('action');
-    var heading = $('#artcl-heading').val();
-    var text = $('#artcl').val();
-    $form = $(this)
-        var formData = new FormData(this);
-        formData.append('heading', heading);
-        formData.append('text', text);
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: formData,
-            processData: false,
-        contentType: false,
-        });
-  });
-
 	$('#profile-info-form').submit(function(){
 		var url = $('#profile-info-form').attr('action');
 		var first_name = $('#s-first-name').val();

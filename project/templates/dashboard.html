@@ -169,9 +169,10 @@
               <div class="recent-med med-box" id="add-book">
                 <span class="rec-text">No recent books added</span>
                 <div id="add-med-book" class="hide med-form">
-                  <form class="needs-validation" novalidate id="form-book">
+                  <form class="needs-validation" id="form-book" method="post" action="{% url 'add_book_review' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="book_name" placeholder="Book" required>
+                      <input type="text" class="form-control" id="book_name" placeholder="Book" name="bookName" required>
                       <label for="book_name">Name of the Book</label>
                       <div class="invalid-feedback">
                         This field is required
@@ -182,26 +183,26 @@
                     </div>
                     <div class="mb-3 file">
                       <label for="imageBook" class="form-label">Book Cover</label>
-                      <input class="form-control" type="file" id="imageBook" accept="image/*">
+                      <input class="form-control" type="file" id="imageBook" accept="image/*" name="bookCover">
                     </div>
                     <div class="form-check">
                       <div class="rating-container">
                         <div class="rating">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
-                          <input type="radio" name="html">
+                          <input type="radio" name="rating-stars" value="5.0" required>
+                          <input type="radio" name="rating-stars" value="4.5" required>
+                          <input type="radio" name="rating-stars" value="4.0" required>
+                          <input type="radio" name="rating-stars" value="3.5" required>
+                          <input type="radio" name="rating-stars" value="3.0" required>
+                          <input type="radio" name="rating-stars" value="2.5" required>
+                          <input type="radio" name="rating-stars" value="2.0" required>
+                          <input type="radio" name="rating-stars" value="1.5" required>
+                          <input type="radio" name="rating-stars" value="1.0" required>
+                          <input type="radio" name="rating-stars" value="0.5" required> 
                         </div>
                       </div>
                     </div>
                     <div class="form-floating">
-                      <textarea class="form-control" placeholder="Write you review here..." id="review" required></textarea>
+                      <textarea class="form-control" placeholder="Write you review here..." id="review" name="bookReview" required></textarea>
                       <label for="review">Review</label>
                       <div class="invalid-feedback">
                         This field is required
@@ -211,7 +212,7 @@
                       </div>
                     </div>
                     <div class="form-floating">
-                      <input type="url" class="form-control" id="bookShopUrl" placeholder="Online Shop URL" required>
+                      <input type="url" class="form-control" id="bookShopUrl" placeholder="Online Shop URL" name='shopUrl' required>
                       <label for="bookShopUrl">Online Shop URL</label>
                       <div class="invalid-feedback">
                         This field is required and only accepts valid URL.
@@ -240,10 +241,11 @@
               <div class="recent-med med-box" id="add-image">
                 <span class="rec-text">No recent images</span>
                 <div id="add-med-img" class="hide med-form">
-                  <form class="needs-validation" novalidate id="form-image">
+                  <form class="needs-validation" id="form-image" method="post" action="{% url 'add_image' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="mb-3 file">
                       <label for="imageGallery" class="form-label">Image</label>
-                      <input class="form-control" type="file" id="imageGallery" accept="image/*" required>
+                      <input class="form-control" type="file" id="imageGallery" accept="image/*" name="image" required>
                       <div class="invalid-feedback">
                         This field is required
                       </div>
@@ -252,7 +254,7 @@
                       </div>
                     </div>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="imgCaption" placeholder="Caption" required>
+                      <input type="text" class="form-control" id="imgCaption" placeholder="Caption" name="caption" required>
                       <label for="imgCaption">Caption</label>
                       <div class="invalid-feedback">
                         This field is required
