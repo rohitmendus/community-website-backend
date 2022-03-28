@@ -26,16 +26,16 @@
       <div class="collapse navbar-collapse justify-content-md-end" id="navbarNavDropdown">
         <ul class="navbar-nav flex-row flex-wrap">
           <li class="nav-item">
-            <a class="nav-link active" href="#about_us">About Us</a>
+            <a class="nav-link active" href="{% url 'index' %}#about_us">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#articles">Articles</a>
+            <a class="nav-link" href="{% url 'index' %}#articles">Articles</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#books">Books</a>
+            <a class="nav-link" href="{% url 'index' %}#books">Books</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#gallery">Gallery</a>
+            <a class="nav-link" href="{% url 'index' %}#gallery">Gallery</a>
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item dropdown d-md-inline d-none">

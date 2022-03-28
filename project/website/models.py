@@ -26,6 +26,7 @@ class ArticleComments(models.Model):
 
 class BookReviews(models.Model):
 	book_title = models.CharField(max_length=200, null=True)
+	book_author = models.CharField(max_length=200, null=True)
 	posted_by = models.ForeignKey(User, related_name="book_reviews", blank=True, on_delete=models.CASCADE)
 	book_cover = models.ImageField(upload_to="pics", null=True)
 	date_posted = models.DateField(auto_now=True)

@@ -29,7 +29,7 @@ function display_img(img) {
 	document.body.style.overflowY = "hidden";
 	let img_viewer = document.getElementById("image-viewer");
 	img_viewer.style.display = "block"
-	let file_name = img.src.split("images/")[1];
+	let file_name = img.src.split("pics/")[1];
 	let file_text = document.querySelector("#image-viewer p").childNodes[0];
 	file_text.nodeValue = file_name;
 	let desc = img.nextElementSibling.innerHTML;

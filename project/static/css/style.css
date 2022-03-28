@@ -10869,6 +10869,9 @@ textarea.form-control-lg {
   font-family: "Poppins", sans-serif;
   color: rgba(255, 255, 255, 0.7);
 }
+#articles .card .card-body .item img {
+  border-radius: 50%;
+}
 #articles .card .card-body #read_more {
   text-align: right;
   padding: 0px 15px;
@@ -10903,7 +10906,7 @@ textarea.form-control-lg {
   padding-bottom: 50px;
 }
 #books .carousel .carousel-inner .carousel-item .card {
-  height: 500px;
+  height: 510px;
   width: 250px;
   margin-right: auto;
   margin-left: auto;
@@ -10919,6 +10922,11 @@ textarea.form-control-lg {
 }
 #books .carousel .carousel-inner .carousel-item .card .card-body h5{
   color: #323436;
+}
+#books .carousel .carousel-inner .carousel-item .card .card-body {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 #gallery {
@@ -11003,6 +11011,7 @@ textarea.form-control-lg {
   font-size: 2.5em;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 #gallery #image-viewer p {
   font-size: 1.4em;
@@ -22051,7 +22060,7 @@ textarea.form-control-lg {
 }
 #dashboard .tab-content #pills-add-med .container .med-section .add-med-2 {
   padding: 10px;
-  height: 610px;
+  height: 650px;
 }
 #dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .form-floating {
   margin-top: 10px;
@@ -22077,17 +22086,17 @@ textarea.form-control-lg {
 #dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .file label {
   color: #323436;
 }
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container {
+#dashboard  #add-med-book .rating-container, #books .rating-container {
   display: flex;
   justify-content: flex-start;
   transition: 0.5s;
 }
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating{
+#dashboard  #add-med-book .rating-container .rating, #books .rating-container .rating{
   position: relative;
   display: flex;
   flex-direction: row-reverse;
 }
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input {
+#dashboard #add-med-book .rating-container .rating input, #books .rating-container .rating input {
   position: relative;
   width: 20px;
   height: 40px;
@@ -22098,7 +22107,7 @@ textarea.form-control-lg {
   appearance: none;
   overflow: hidden;
 }
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input::before {
+#dashboard #add-med-book .rating-container .rating input::before, #books .rating-container .rating input:before {
   content: '\f005';
   position: absolute;
   font-family: fontAwesome;
@@ -22108,14 +22117,16 @@ textarea.form-control-lg {
   color: #323436;
   transition: 0.5s;
 }
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input:nth-child(2n + 1)::before {
+#dashboard #add-med-book .rating-container .rating input:nth-child(2n + 1)::before, #books .rating-container .rating input:nth-child(2n + 1)::before{
   right: 4px;
   left: initial;
 }
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input:hover ~ input::before,
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input:hover::before,
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input:checked ~ input::before,
-#dashboard .tab-content #pills-add-med .container .med-section .add-med-2 #add-med-book form .rating-container .rating input:checked::before{
+#dashboard #add-med-book .rating-container .rating input:hover ~ input::before,
+#dashboard #add-med-book .rating-container .rating input:hover::before,
+#dashboard #add-med-book .rating-container .rating input:checked ~ input::before,
+#dashboard #add-med-book .rating-container .rating input:checked::before,
+#books .rating-container .rating input:checked ~ input::before,
+#books .rating-container .rating input:checked::before{
   color: #1f9cff;
 }
 #dashboard .tab-content #pills-add-med .container .med-section .add-med-3 {
@@ -22476,6 +22487,39 @@ textarea.form-control-lg {
 }
 .forgot-password a:hover{
   color: #6c757d;;
+}
+.blur-content {
+  filter: blur(5px);
+  min-height: 500px;
+}
+.blur-content a{
+  cursor: default;
+  pointer-events: none;
+}
+.sign-in-required {
+  z-index: 1000;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.sign-in-required div {
+  background-color: #FFF;
+  width: 400px;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+.sign-in-required div span {
+  color: #323436;
+  display: block;
+  margin-bottom: 10px;
+}
+.disable-img-viewer img {
+  cursor: default;
+  pointer-events: none;
 }
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
@@ -33251,7 +33295,7 @@ textarea.form-control-lg {
     margin-left: 50px;
   }
 
-  #articles .card .card-body .item .image svg {
+  #articles .card .card-body .item .image img {
     height: 65px;
     width: 66px;
   }
@@ -33485,7 +33529,7 @@ textarea.form-control-lg {
     margin-left: 100px;
   }
 
-  #articles .card .card-body .item .image svg {
+  #articles .card .card-body .item .image img {
     height: 60px;
     width: 60px;
   }
@@ -33500,7 +33544,7 @@ textarea.form-control-lg {
     font-size: 2.5em;
   }
   #books .carousel .carousel-inner .carousel-item .card {
-    height: 450px;
+    height: 470px;
     font-size: 0.95em;
   }
   #books .carousel .carousel-inner .carousel-item .card .card-img-top {
@@ -33666,6 +33710,12 @@ textarea.form-control-lg {
   .delete-account .card, .change-password-container .card, .pwd-reset .card{
     width: 375px !important;
   }
+  .sign-in-required div a {
+    font-size: 0.95em;
+  }
+  .sign-in-required div {
+    width: 300px;
+  }
 }
 @media (max-width: 411px) {
   .back {
@@ -33727,7 +33777,7 @@ textarea.form-control-lg {
     margin-left: 70px;
   }
 
-  #articles .card .card-body .item .image svg {
+  #articles .card .card-body .item .image image {
     height: 50px;
     width: 50px;
   }
@@ -33745,7 +33795,7 @@ textarea.form-control-lg {
     font-size: 10vw;
   }
   #books .carousel .carousel-inner .carousel-item .card {
-    height: 425px;
+    height: 445px;
     font-size: 0.9em;
   }
   #books .carousel .carousel-inner .carousel-item .card .card-img-top {
@@ -33866,6 +33916,12 @@ textarea.form-control-lg {
   }
   .delete-account .card, .change-password-container .card, .pwd-reset .card{
     width: 340px !important;
+  }
+  .sign-in-required div span {
+    font-size: 0.95em;
+  }
+  .sign-in-required div {
+    width: 290px;
   }
 }
 body, p, span, pre {

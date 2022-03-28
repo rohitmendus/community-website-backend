@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from accounts.models import Profile
 from .models import friend_requests, Articles, BookReviews, GalleryImages
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User, auth, AnonymousUser
 from django.contrib import messages
 from django.core.validators import URLValidator
 from django.contrib.auth.hashers import check_password
@@ -11,15 +11,44 @@ import re
 
 # Create your views here.
 def index(request):
-	try:
-		profile = Profile.objects.get(user=request.user)
-		pro_pic = True
-		if profile.profile_pic == "":
-			pro_pic = False
-		return render(request, 'index.html', {'pro_pic': pro_pic, 'pic': profile.profile_pic})
-	except:
+	if request.user == AnonymousUser():
 		pro_pic = False
 		return render(request, 'index.html', {'pro_pic': pro_pic})
+	else:
+		pro_pic = True
+	profile = Profile.objects.get(user=request.user)
+	if profile.profile_pic == "":
+		pro_pic = False
+
+	articles = []
+	articles_obj = Articles.objects.order_by("date_posted")[:10]
+	for i in articles_obj:
+		author = i.author.first_name + " " + i.author.last_name
+		author_profile_pic = Profile.objects.get(user=i.author).profile_pic
+		author_profile_pic_present = True
+		if author_profile_pic == "":
+			author_profile_pic_present = False
+		article = {'title': i.title, 'date_posted': i.date_posted, 'author': author,
+			'author_profile_pic': author_profile_pic, 'author_profile_pic_present': author_profile_pic_present}
+		articles.append(article)
+
+	book_reviews = []
+	book_reviews_obj = BookReviews.objects.order_by("date_posted")
+	for i in book_reviews_obj:
+		review = ' '.join(i.review.split(' ')[:13])
+		book_review = {'book_title': i.book_title, 'book_cover': i.book_cover, 
+			'rating': str(i.rating), 'review': review}
+		book_reviews.append(book_review)
+
+	gallery_images = []
+	gallery_images_obj = GalleryImages.objects.order_by("date_posted")
+	for i in gallery_images_obj:
+		gallery_image = {'image': i.image, 'caption': i.caption}
+		gallery_images.append(gallery_image)
+
+	context = {'pro_pic': pro_pic, 'pic': profile.profile_pic, 'articles': articles, 
+			'book_reviews': book_reviews, 'gallery_images': gallery_images}
+	return render(request, 'index.html', context)
 
 @login_required(login_url="/sign-in")
 def dashboard(request):
@@ -262,14 +291,24 @@ def add_book_review(request):
 		rating = float(request.POST.get('rating-stars'))
 		review = request.POST.get('bookReview')
 		shop_url = request.POST.get('shopUrl')
+		book_author = request.POST.get('bookAuthor')
 		book_cover = request.FILES.get('bookCover')
 		posted_by = request.user
 		if len(review) < 500:
-			book_review = BookReviews(book_title=book_name, posted_by=posted_by, 
-				book_cover=book_cover, review=review, shop_url=shop_url, rating=rating)
-			book_review.save()
-			messages.info(request, "The book review has been saved!")
-			return redirect("/dashboard")
+			if len(book_name) < 200:
+				if len(book_author) < 200:
+					book_review = BookReviews(book_title=book_name, posted_by=posted_by, 
+						book_cover=book_cover, review=review, shop_url=shop_url, rating=rating,
+						book_author=book_author)
+					book_review.save()
+					messages.info(request, "The book review has been saved!")
+					return redirect("/dashboard")
+				else:
+					messages.info(request, "The name of the author has exceeded max text size!")
+					return redirect("/dashboard")
+			else:
+				messages.info(request, "Book name has exceeded max text size!")
+				return redirect("/dashboard")
 		else:
 			messages.info(request, "Review has exceeded max text size!")
 			return redirect("/dashboard")
@@ -281,8 +320,8 @@ def add_image(request):
 		caption = request.POST.get('caption')
 		if len(caption) < 200:
 			galley_image = GalleryImages(image=image, caption=caption, posted_by=request.user)
-			messages.info(request, "The image has been saved to the gallery!")
 			galley_image.save()
+			messages.info(request, "The image has been saved to the gallery!")
 		else:
 			messages.info(request, "Caption has exceeded max text size!")
 			return redirect("/dashboard")
