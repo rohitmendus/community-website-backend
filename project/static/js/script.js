@@ -91,8 +91,12 @@ function searchItem(e) {
 // Brings the HTML set up for adding articles
 function add_article() {
 	let box = document.getElementById("add-article");
-	box.classList.remove("recent-med");
-	box.firstElementChild.classList.add("hide");
+	if (document.getElementById('user-articles').classList.contains('d-none')) {
+		box.classList.remove("recent-med");
+		document.getElementById('rec-text').classList.add("hide");
+	} else {
+		box.firstElementChild.classList.add("hide");
+	}
 	box.classList.add("add-med-1");
 	document.getElementById("med-artcl-btn").classList.add("hide");
 	document.getElementById("add-med-artcl").classList.remove("hide");
@@ -108,14 +112,17 @@ function cancel_article(e) {
 		document.getElementById("artcl-heading").value="";
 		document.getElementById("artcl").value="";
 		let box = document.getElementById("add-article");
-		box.classList.add("recent-med");
-		box.firstElementChild.classList.remove("hide");
+		if (document.getElementById('user-articles').classList.contains('d-none')) {
+			box.classList.add("recent-med");
+			document.getElementById('rec-text').classList.remove("hide");
+		} else {
+			box.firstElementChild.classList.remove("hide");
+		}
 		box.classList.remove("add-med-1");
 		document.getElementById("med-artcl-btn").classList.remove("hide");
 		document.getElementById("add-med-artcl").classList.add("hide");
 	}
 }
-
 
 // End of ADD ARTICLES section
 
@@ -126,8 +133,12 @@ function cancel_article(e) {
 // Brings the HTML for adding book review.
 function add_book_review() {
 	let box = document.getElementById("add-book");
-	box.classList.remove("recent-med");
-	box.firstElementChild.classList.add("hide");
+	if (document.getElementById('user-book-reviews').classList.contains('d-none')) {
+		box.classList.remove("recent-med");
+		document.getElementById('rec-text').classList.add("hide");
+	} else {
+		box.firstElementChild.classList.add("hide");
+	}
 	box.classList.add("add-med-2");
 	document.getElementById("med-book-btn").classList.add("hide");
 	document.getElementById("add-med-book").classList.remove("hide");
@@ -149,8 +160,12 @@ function cancel_book_review(e) {
 			i.checked=false;
 		}
 		let box = document.getElementById("add-book");
-		box.classList.add("recent-med");
-		box.firstElementChild.classList.remove("hide");
+		if (document.getElementById('user-book-reviews').classList.contains('d-none')) {
+			box.classList.add("recent-med");
+			document.getElementById('rec-text').classList.remove("hide");
+		} else {
+			box.firstElementChild.classList.remove("hide");
+		}
 		box.classList.remove("add-med-2");
 		document.getElementById("med-book-btn").classList.remove("hide");
 		document.getElementById("add-med-book").classList.add("hide");
@@ -166,8 +181,12 @@ function cancel_book_review(e) {
 // Brings the HTML for adding book review.
 function add_image() {
 	let box = document.getElementById("add-image");
-	box.classList.remove("recent-med");
-	box.firstElementChild.classList.add("hide");
+	if (document.getElementById('user-images').classList.contains('d-none')) {
+		box.classList.remove("recent-med");
+		document.getElementById('rec-text').classList.add("hide");
+	} else {
+		box.firstElementChild.classList.add("hide");
+	}
 	box.classList.add("add-med-3");
 	document.getElementById("med-img-btn").classList.add("hide");
 	document.getElementById("add-med-img").classList.remove("hide");
@@ -183,8 +202,12 @@ function cancel_image(e) {
 		document.getElementById("imageGallery").value="";
 		document.getElementById("imgCaption").value="";
 		let box = document.getElementById("add-image");
-		box.classList.add("recent-med");
-		box.firstElementChild.classList.remove("hide");
+		if (document.getElementById('user-images').classList.contains('d-none')) {
+			box.classList.add("recent-med");
+			document.getElementById('rec-text').classList.remove("hide");
+		} else {
+			box.firstElementChild.classList.remove("hide");
+		}
 		box.classList.remove("add-med-3");
 		document.getElementById("med-img-btn").classList.remove("hide");
 		document.getElementById("add-med-img").classList.add("hide");

@@ -32,4 +32,10 @@ urlpatterns = [
     path('add_article/', views.add_article, name="add_article"),
     path('add_book_review/', views.add_book_review, name="add_book_review"),
     path('add_image/', views.add_image, name="add_image"),
+    path('edit_article/<int:article_id>', views.edit_article, name="edit_article"),
+    path('delete_article/<int:article_id>', views.delete_article, name="delete_article"),
+    path('edit_book_review/<int:book_review_id>', views.edit_book_review, name="edit_book_review"),
+    path('delete_book_review/<int:book_review_id>', views.delete_book_review, name="delete_book_review"),
+    path('edit_image/<int:image_id>', views.edit_image, name="edit_image"),
+    path('delete_image/<int:image_id>', views.delete_image, name="delete_image"),
 ]

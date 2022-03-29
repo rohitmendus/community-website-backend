@@ -22034,7 +22034,7 @@ textarea.form-control-lg {
   width: 100%;
   height: 300px;
   position: relative;
-  border: 2px solid #323436;
+  /*border: 1px solid #323436;*/
 }
 #dashboard .tab-content #pills-add-med .container .med-section .add-med-1 {
   padding: 10px;
@@ -22520,6 +22520,74 @@ textarea.form-control-lg {
 .disable-img-viewer img {
   cursor: default;
   pointer-events: none;
+}
+#user-articles, #user-book-reviews {
+  overflow-y: auto;
+}
+#user-articles .list-group-item, #user-book-reviews .list-group-item {
+  margin: 5px 0;
+}
+#user-articles .list-group-item .btn-group, #user-book-reviews .list-group-item .btn-group{
+  float: right;
+}
+#user-articles .list-group-item .btn-group a, #user-book-reviews .list-group-item .btn-group a {
+  margin: 0 5px;
+}
+#user-images .card-title {
+  color: #323436;
+}
+#user-images .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+#user-images .card .btn {
+  margin: 10px 5px;
+}
+#user-images .carousel-inner {
+  padding: 1em;
+  color: #323436;
+}
+#user-images .card {
+  margin: 0 0.5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border: none;
+}
+#user-images .carousel-control-prev,
+#user-images .carousel-control-next {
+  background-color: #323436;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media (min-width: 768px) {
+  #user-images .carousel-item {
+    margin-right: 0;
+    flex: 0 0 33.333333%;
+    display: block;
+  }
+  #user-images .carousel-inner {
+    display: flex;
+  }
+}
+#user-images .card .img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+#user-images .card img {
+    height: 100%;
+    width: 100%;
+}
+#user-images .card .card-body {
+  text-align: center;
+}
+#dashboard .tab-content #pills-add-med .container .med-section #add-image {
+  height: 430px;
 }
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)

@@ -101,6 +101,15 @@ def dashboard(request):
 		"profile_pic": i.profile_pic, "id": user.id}
 		friends.append(friend)
 	context["friends"] = friends
+
+	user_articles = Articles.objects.filter(author=request.user).values('id', 'title')
+	context["user_articles"] = user_articles
+
+	user_books = BookReviews.objects.filter(posted_by=request.user).values('id', 'book_title')
+	context["user_books"] = user_books
+
+	user_images = GalleryImages.objects.filter(posted_by=request.user).values('id', 'image', 'caption')
+	context["user_images"] = user_images
 	return render(request, 'dashboard.html', context)
 
 
@@ -325,4 +334,32 @@ def add_image(request):
 		else:
 			messages.info(request, "Caption has exceeded max text size!")
 			return redirect("/dashboard")
+	return redirect("/dashboard")
+
+
+def edit_article(request, article_id):
+	pass
+
+def delete_article(request, article_id):
+	article = Articles.objects.get(id=article_id)
+	article.delete()
+	messages.info(request, "The article has been deleted!")
+	return redirect("/dashboard")
+
+def edit_book_review(request, book_review_id):
+	pass
+
+def delete_book_review(request, book_review_id):
+	book_review = BookReviews.objects.get(id=book_review_id)
+	book_review.delete()
+	messages.info(request, "The book review has been deleted!")
+	return redirect("/dashboard")
+
+def edit_image(request, image_id):
+	pass
+
+def delete_image(request, image_id):
+	image = GalleryImages.objects.get(id=image_id)
+	image.delete()
+	messages.info(request, "The image has been deleted from the gallery!")
 	return redirect("/dashboard")

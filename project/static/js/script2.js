@@ -1,13 +1,15 @@
 // Start of Dashboard
 
 $(document).ready(function(){
-    try {
-        if (tab == "register"){
-            $('#register-tab').tab('show');
-        }
-    } catch(e){
-        console.log()
-    }
+  try {
+      if (tab == "register"){
+          $('#register-tab').tab('show');
+      }
+  } catch(e){
+      console.log()
+  }
+
+  $("#messsage-modal").modal('show');
 
 	$('#profile-info-form').submit(function(){
 		var url = $('#profile-info-form').attr('action');
@@ -51,9 +53,9 @@ $(document).ready(function(){
         });
 	});
 
-    var multipleCardCarousel = document.querySelector(
-      "#carouselExampleControls"
-    );
+  var carousels = $('#carouselExampleControls, #carouselCRUD-Images')
+
+  for (let multipleCardCarousel of carousels) {
     if (window.matchMedia("(min-width: 768px)").matches) {
       var carousel = new bootstrap.Carousel(multipleCardCarousel, {
         interval: false,
@@ -82,6 +84,10 @@ $(document).ready(function(){
     } else {
       $(multipleCardCarousel).addClass("slide");
     }
+  }
+  // var multipleCardCarousel = document.querySelector(
+  //   "#carouselExampleControls"
+  // );
 });
 
 // End of Dashboard
