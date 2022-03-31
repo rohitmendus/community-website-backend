@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<!-- Jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body id="sign-in-page">
+	<div class="container view-media" id="sign-in-or-register">
+		<a class="back" href="{% url 'index' %}">
+			<div>
+				<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+				</svg>
+				<span>Back</span>
+			</div>
+		</a>
+		<!-- <div id="messsage-modal-media" class="modal fade"data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+			    <div class="modal-header">
+			      <h5 class="modal-title" id="staticBackdropLabel" style="color: #323436;">Please Note</h5>
+			      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			    </div>
+			    <div class="modal-body" id="error-message"></div>
+			    <div class="modal-footer">
+			      <button type="button" class="btn btn-info" data-bs-dismiss="modal">Ok</button>
+			    </div>
+			  </div>
+			</div>
+		</div> -->
+		{% block content %}
+		{% endblock %}
+	</div>
+	<!-- Jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!--Bootstrap Bundle with Popper -->
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<!-- My Jquery script -->
+	<script type="text/javascript" src="{% static 'js/script2.js' %}"></script>
+</body>
+</html>

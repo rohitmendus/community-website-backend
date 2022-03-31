@@ -53,6 +53,88 @@ $(document).ready(function(){
         });
 	});
 
+  $('.like-form').submit(function(e){
+    e.preventDefault()
+    $(this).hide()
+    if ($(this).attr('id') === "like1") {
+      $('#like0').show()
+      like_type = $('#like1 input[name="like"]').val()
+    } else{
+      $('#like1').show()
+      like_type = $('#like0 input[name="like"]').val()
+    }
+
+    const url = $(this).attr('action')
+    const csrf_token = $('#like1 input[name="csrfmiddlewaretoken"]').val()
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {'like': like_type, 'csrfmiddlewaretoken': csrf_token},
+        dataType: "json",
+        success: function(response){
+          $('#no-of-likes').text(response.no_of_likes)
+          if (response.liked){
+            $('#like0').show();
+            $('#like1').hide();
+          } else{
+            $('#like1').show();
+            $('#like0').hide();
+          }
+        },
+    });
+  });
+
+  $('#comments button').click(function(){
+    $('#comments-box').slideToggle(200);
+    if ($(this).attr('id') == "comment-btn") {
+      $(this).attr('id', 'comment-btn-open')
+    } else {
+      $(this).attr('id', 'comment-btn')
+    }
+  });
+
+  $('#comment-cancel-btn').click(function(){
+    $(this).closest('form').find("textarea").val("");
+  })
+
+  $('#comments-form form').submit(function(e) {
+    e.preventDefault()
+    const url = $(this).attr('action')
+    const comment = $('#comment-text').val()
+    const csrf_token = $('#comments-form form input[name="csrfmiddlewaretoken"]').val()
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {'comment': comment, 'csrfmiddlewaretoken': csrf_token},
+      dataType: 'json',
+      success: function(response){
+        $("#no-of-comments").text(response.no_of_comments)
+        $('#empty-comments').hide()
+        $('#comments-form form textarea').val("")
+        $('#comments-div>div').remove()
+        for (let comment of response.comments) {
+          if (comment.commenter_profile_pic.length !== 0) {
+            var img = '<img src="'+media_folder+comment.commenter_profile_pic+'" alt="" class="rounded-circle" width="40" height="40">';
+          } else {
+            var img = '<img src="'+media_folder+'pics/profile.jpg" alt="" class="rounded-circle" width="40" height="40">';
+          }
+          let comment_div = $('<div class="comment mt-4 text-justify float-left">'+img+'<h5>'+comment.posted_by+'</h5><span>- '+comment.date_posted+'</span><br><p>'+comment.comment+'</p></div>');
+          // posted_by = $('').text(comment.posted_by);
+          // date = $('<span></span>').text("- "+comment.date_posted);
+          // comment = $('<p></p>').text(comment.comment);
+          // comment_div.append(img);
+          // comment_div.append(posted_by);
+          // comment_div.append(date);
+          // comment_div.append($('<br>'));
+          // comment_div.append(comment);
+          $('#comments-div').append(comment_div);
+        }
+      }
+    });
+    
+  });
+
   var carousels = $('#carouselExampleControls, #carouselCRUD-Images')
 
   for (let multipleCardCarousel of carousels) {

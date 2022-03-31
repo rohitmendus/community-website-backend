@@ -46,7 +46,7 @@
                 <img src="{% get_media_prefix %}pics/profile.jpg" width="75" height="75">
                 {% endif %}
               </div>
-              <div class="text"><a href="#">
+              <div class="text"><a href="{% url 'view_article' i.id %}">
                   <h3 class="h5">{{i.title}}</h3></a><small>Posted on {{i.date_posted}} by {{i.author}}.   </small>
               </div>
             </div>

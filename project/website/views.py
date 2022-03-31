@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from accounts.models import Profile
-from .models import friend_requests, Articles, BookReviews, GalleryImages
+from .models import *
 from django.contrib.auth.models import User, auth, AnonymousUser
 from django.contrib import messages
 from django.core.validators import URLValidator
 from django.contrib.auth.hashers import check_password
 import re
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -21,29 +23,29 @@ def index(request):
 		pro_pic = False
 
 	articles = []
-	articles_obj = Articles.objects.order_by("date_posted")[:10]
+	articles_obj = Articles.objects.order_by("-date_posted")
 	for i in articles_obj:
 		author = i.author.first_name + " " + i.author.last_name
 		author_profile_pic = Profile.objects.get(user=i.author).profile_pic
 		author_profile_pic_present = True
 		if author_profile_pic == "":
 			author_profile_pic_present = False
-		article = {'title': i.title, 'date_posted': i.date_posted, 'author': author,
+		article = {'id': i.id, 'title': i.title, 'date_posted': i.date_posted, 'author': author,
 			'author_profile_pic': author_profile_pic, 'author_profile_pic_present': author_profile_pic_present}
 		articles.append(article)
 
 	book_reviews = []
-	book_reviews_obj = BookReviews.objects.order_by("date_posted")
+	book_reviews_obj = BookReviews.objects.order_by("-date_posted")
 	for i in book_reviews_obj:
 		review = ' '.join(i.review.split(' ')[:13])
-		book_review = {'book_title': i.book_title, 'book_cover': i.book_cover, 
+		book_review = {'id': i.id, 'book_title': i.book_title, 'book_cover': i.book_cover, 
 			'rating': str(i.rating), 'review': review}
 		book_reviews.append(book_review)
 
 	gallery_images = []
-	gallery_images_obj = GalleryImages.objects.order_by("date_posted")
+	gallery_images_obj = GalleryImages.objects.order_by("-date_posted")
 	for i in gallery_images_obj:
-		gallery_image = {'image': i.image, 'caption': i.caption}
+		gallery_image = {'id': i.id, 'image': i.image, 'caption': i.caption}
 		gallery_images.append(gallery_image)
 
 	context = {'pro_pic': pro_pic, 'pic': profile.profile_pic, 'articles': articles, 
@@ -363,3 +365,66 @@ def delete_image(request, image_id):
 	image.delete()
 	messages.info(request, "The image has been deleted from the gallery!")
 	return redirect("/dashboard")
+
+def view_article(request, article_id):
+	context = {}
+	user_profile_pic = Profile.objects.get(user=request.user).profile_pic
+	article_obj = Articles.objects.get(id=article_id)
+	author = article_obj.author.first_name + " " + article_obj.author.last_name
+	liked = ArticleLikes.objects.filter(article=article_obj, liked_by=request.user).exists()
+	article = {'id': article_obj.id, 'title': article_obj.title, 'date_posted': article_obj.date_posted, 
+	'author': author, 'text': article_obj.text, 'no_of_likes': article_obj.likes.all().count(),
+	'liked': liked, 'no_of_comments': article_obj.comments.all().count()}
+
+	comments_obj = ArticleComments.objects.filter(article=article_obj).order_by("-date_posted")
+	comments = []
+	for i in comments_obj:
+		posted_by = i.posted_by.first_name + " " + i.posted_by.last_name
+		commenter_profile_pic = Profile.objects.get(user=i.posted_by).profile_pic
+		comment = {'id': i.id, 'posted_by': posted_by, 'comment': i.comment,
+			'date_posted': i.date_posted, 'commenter_profile_pic': commenter_profile_pic}
+		comments.append(comment)
+
+	article['comments'] = comments
+	context['article'] = article
+	context['user_profile_pic'] = user_profile_pic
+	return render(request, 'view_article.html', context)
+
+def like_article(request, article_id):
+	if request.method == "POST":
+		article = Articles.objects.get(id=article_id)
+		like_type = request.POST.get('like')
+		if like_type == '1':
+			like = ArticleLikes(article=article, liked_by=request.user)
+			like.save()
+		else:
+			liked = ArticleLikes.objects.filter(article=article, liked_by=request.user).exists()
+			if liked:
+				like = ArticleLikes.objects.get(article=article, liked_by=request.user)
+				like.delete()
+		no_of_likes = article.likes.all().count()
+		liked = ArticleLikes.objects.filter(article=article, liked_by=request.user).exists()
+		response_data = {'no_of_likes': no_of_likes, 'liked': liked}
+		return JsonResponse(response_data)
+	return redirect("/view_article/"+str(article_id))
+
+
+
+def post_article_comment(request, article_id):
+	if request.method == "POST":
+		article = Articles.objects.get(id=article_id)
+		comment = request.POST.get('comment')
+		article_comment = ArticleComments(article=article, comment=comment, posted_by=request.user)
+		article_comment.save()
+
+		comments_obj = ArticleComments.objects.filter(article=article).order_by("-date_posted")
+		comments = []
+		for i in comments_obj:
+			posted_by = i.posted_by.first_name + " " + i.posted_by.last_name
+			commenter_profile_pic = Profile.objects.get(user=i.posted_by).profile_pic
+			comment = {'id': i.id, 'posted_by': posted_by, 'comment': i.comment,
+				'date_posted': i.date_posted.strftime("%d %B, %Y"), 'commenter_profile_pic': str(commenter_profile_pic)}
+			comments.append(comment)
+		response_data = {'no_of_comments': article.comments.all().count(), 'comments': comments}
+		return JsonResponse(response_data)
+	return redirect("/view_article/"+str(article_id))

@@ -38,4 +38,7 @@ urlpatterns = [
     path('delete_book_review/<int:book_review_id>', views.delete_book_review, name="delete_book_review"),
     path('edit_image/<int:image_id>', views.edit_image, name="edit_image"),
     path('delete_image/<int:image_id>', views.delete_image, name="delete_image"),
+    path('view_article/<int:article_id>', views.view_article, name="view_article"),
+    path('like_article/<int:article_id>', views.like_article, name="like_article"),
+    path('post_article_comment/<int:article_id>', views.post_article_comment, name="post_article_comment"),
 ]
